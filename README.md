@@ -1,5 +1,5 @@
 # kana-board
-clickable board for learning hiragana and katakana scripts
+clickable board for learning hiragana (and eventually katakana) scripts
 
 currently only displaying hiragana
 

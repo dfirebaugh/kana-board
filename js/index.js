@@ -3,7 +3,6 @@
  * 
  */
 import { LitElement, html, css } from "lit-element";
-import hiragana from "../data/hiragana";
 import kanas from "../data/kanas";
 import "./components/character-card";
 import "./components/roumaji-reveal";

@@ -5,6 +5,9 @@ class RoumajiReveal extends LitElement {
         return {
             roumaji: {
                 attribute: "roumaji",
+            },
+            img: {
+                attribute: "img"
             }
         }
     }
@@ -33,13 +36,14 @@ class RoumajiReveal extends LitElement {
             font-size: 7rem;
             display: grid;
             align-content: center;
+            justify-content: center;
         }
     `;
     }
 
     constructor() {
         super();
-        this.opacity = 85;
+        this.opacity = 95;
     }
 
     // TODO: make this fade out without requiring a click
@@ -50,6 +54,22 @@ class RoumajiReveal extends LitElement {
         this.remove();
     }
 
+    renderImg() {
+        if (!this.img) return;
+
+        return html`
+            <img src="${this.img}" />
+        `;
+    }
+
+    renderRoumaji() {
+        if(!this.roumaji) return;
+
+        return html`
+            <h1>${this.roumaji}</h1>
+        `;
+    }
+
     render() {
         return html`
         <style>
@@ -58,7 +78,8 @@ class RoumajiReveal extends LitElement {
         }
         </style>
         <container @click="${this.fadeAway}" class="noselect">
-            <h1>${this.roumaji}</h1>
+            ${this.renderRoumaji()}
+            ${this.renderImg()}
         </container>
       `;
     }
