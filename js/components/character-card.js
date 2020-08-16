@@ -129,10 +129,8 @@ class CharacterCard extends LitElement {
     }
 
     handleMnemonicClick() {
-        console.log("mnemonic file: ", `/data/${this.character.mnemonic}`)
-
         const mnemonicReveal = document.createElement("roumaji-reveal");
-        mnemonicReveal.setAttribute("img", `/data/${this.character.mnemonic}`);
+        mnemonicReveal.setAttribute("img", `${this.character.mnemonic}`);
         this.shadowRoot.appendChild(mnemonicReveal);
     }
 

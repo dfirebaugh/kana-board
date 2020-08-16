@@ -3,7 +3,7 @@
  * 
  */
 import { LitElement, html, css } from "lit-element";
-import kanas from "../data/kanas";
+import kanas from "../data/kanas_with_images";
 import "./components/character-card";
 import "./components/roumaji-reveal";
 import "./components/kana-controls";

@@ -3,735 +3,630 @@ export default {
         "kana": "あ",
         "roumaji": "a",
         "type": "gojuuon",
-        "audio": "../audio/a.mp3",
-        "mnemonic": "images/mnemonics/a.jpg"
+        "audio": "../audio/a.mp3"
     },
     "i": {
         "kana": "い",
         "roumaji": "i",
         "type": "gojuuon",
-        "audio": "../audio/i.mp3",
-        "mnemonic": "images/mnemonics/i.jpg"
+        "audio": "../audio/i.mp3"
     },
     "u": {
         "kana": "う",
         "roumaji": "u",
         "type": "gojuuon",
-        "audio": "../audio/u.mp3",
-        "mnemonic": "images/mnemonics/u.jpg"
+        "audio": "../audio/u.mp3"
     },
     "e": {
         "kana": "え",
         "roumaji": "e",
         "type": "gojuuon",
-        "audio": "../audio/e.mp3",
-        "mnemonic": "images/mnemonics/e.jpg"
+        "audio": "../audio/e.mp3"
     },
     "o": {
         "kana": "お",
         "roumaji": "o",
         "type": "gojuuon",
-        "audio": "../audio/o.mp3",
-        "mnemonic": "images/mnemonics/o.jpg"
+        "audio": "../audio/o.mp3"
     },
     "ka": {
         "kana": "か",
         "roumaji": "ka",
         "type": "gojuuon",
-        "audio": "../audio/ka.mp3",
-        "mnemonic": "images/mnemonics/ka.jpg"
+        "audio": "../audio/ka.mp3"
     },
     "ki": {
         "kana": "き",
         "roumaji": "ki",
         "type": "gojuuon",
-        "audio": "../audio/ki.mp3",
-        "mnemonic": "images/mnemonics/ki.jpg"
+        "audio": "../audio/ki.mp3"
     },
     "ku": {
         "kana": "く",
         "roumaji": "ku",
         "type": "gojuuon",
-        "audio": "../audio/ku.mp3",
-        "mnemonic": "images/mnemonics/ku.jpg"
+        "audio": "../audio/ku.mp3"
     },
     "ke": {
         "kana": "け",
         "roumaji": "ke",
         "type": "gojuuon",
-        "audio": "../audio/ke.mp3",
-        "mnemonic": "images/mnemonics/ke.jpg"
+        "audio": "../audio/ke.mp3"
     },
     "ko": {
         "kana": "こ",
         "roumaji": "ko",
         "type": "gojuuon",
-        "audio": "../audio/ko.mp3",
-        "mnemonic": "images/mnemonics/ko.jpg"
+        "audio": "../audio/ko.mp3"
     },
     "sa": {
         "kana": "さ",
         "roumaji": "sa",
         "type": "gojuuon",
-        "audio": "../audio/sa.mp3",
-        "mnemonic": "images/mnemonics/sa.jpg"
+        "audio": "../audio/sa.mp3"
     },
     "shi": {
         "kana": "し",
         "roumaji": "shi",
         "type": "gojuuon",
-        "audio": "../audio/shi.mp3",
-        "mnemonic": "images/mnemonics/shi.jpg"
+        "audio": "../audio/shi.mp3"
     },
     "su": {
         "kana": "す",
         "roumaji": "su",
         "type": "gojuuon",
-        "audio": "../audio/su.mp3",
-        "mnemonic": "images/mnemonics/su.jpg"
+        "audio": "../audio/su.mp3"
     },
     "se": {
         "kana": "せ",
         "roumaji": "se",
         "type": "gojuuon",
-        "audio": "../audio/se.mp3",
-        "mnemonic": "images/mnemonics/se.jpg"
+        "audio": "../audio/se.mp3"
     },
     "so": {
         "kana": "そ",
         "roumaji": "so",
         "type": "gojuuon",
-        "audio": "../audio/so.mp3",
-        "mnemonic": "images/mnemonics/so.jpg"
+        "audio": "../audio/so.mp3"
     },
     "ta": {
         "kana": "た",
         "roumaji": "ta",
         "type": "gojuuon",
-        "audio": "../audio/ta.mp3",
-        "mnemonic": "images/mnemonics/ta.jpg"
+        "audio": "../audio/ta.mp3"
     },
     "chi": {
         "kana": "ち",
         "roumaji": "chi",
         "type": "gojuuon",
-        "audio": "../audio/chi.mp3",
-        "mnemonic": "images/mnemonics/chi.jpg"
+        "audio": "../audio/chi.mp3"
     },
     "tsu": {
         "kana": "つ",
         "roumaji": "tsu",
         "type": "gojuuon",
-        "audio": "../audio/tsu.mp3",
-        "mnemonic": "images/mnemonics/tsu.jpg"
+        "audio": "../audio/tsu.mp3"
     },
     "te": {
         "kana": "て",
         "roumaji": "te",
         "type": "gojuuon",
-        "audio": "../audio/te.mp3",
-        "mnemonic": "images/mnemonics/te.jpg"
+        "audio": "../audio/te.mp3"
     },
     "to": {
         "kana": "と",
         "roumaji": "to",
         "type": "gojuuon",
-        "audio": "../audio/to.mp3",
-        "mnemonic": "images/mnemonics/to.jpg"
+        "audio": "../audio/to.mp3"
     },
     "na": {
         "kana": "な",
         "roumaji": "na",
         "type": "gojuuon",
-        "audio": "../audio/na.mp3",
-        "mnemonic": "images/mnemonics/na.jpg"
+        "audio": "../audio/na.mp3"
     },
     "ni": {
         "kana": "に",
         "roumaji": "ni",
         "type": "gojuuon",
-        "audio": "../audio/ni.mp3",
-        "mnemonic": "images/mnemonics/ni.jpg"
+        "audio": "../audio/ni.mp3"
     },
     "nu": {
         "kana": "ぬ",
         "roumaji": "nu",
         "type": "gojuuon",
-        "audio": "../audio/nu.mp3",
-        "mnemonic": "images/mnemonics/nu.jpg"
+        "audio": "../audio/nu.mp3"
     },
     "ne": {
         "kana": "ね",
         "roumaji": "ne",
         "type": "gojuuon",
-        "audio": "../audio/ne.mp3",
-        "mnemonic": "images/mnemonics/ne.jpg"
+        "audio": "../audio/ne.mp3"
     },
     "no": {
         "kana": "の",
         "roumaji": "no",
         "type": "gojuuon",
-        "audio": "../audio/no.mp3",
-        "mnemonic": "images/mnemonics/no.jpg"
+        "audio": "../audio/no.mp3"
     },
     "ha": {
         "kana": "は",
         "roumaji": "ha",
         "type": "gojuuon",
-        "audio": "../audio/ha.mp3",
-        "mnemonic": "images/mnemonics/ha.jpg"
+        "audio": "../audio/ha.mp3"
     },
     "hi": {
         "kana": "ひ",
         "roumaji": "hi",
         "type": "gojuuon",
-        "audio": "../audio/hi.mp3",
-        "mnemonic": "images/mnemonics/hi.jpg"
+        "audio": "../audio/hi.mp3"
     },
     "hu": {
         "kana": "ふ",
         "roumaji": "hu",
         "type": "gojuuon",
-        "audio": "../audio/hu.mp3",
-        "mnemonic": "images/mnemonics/hu.jpg"
+        "audio": "../audio/hu.mp3"
     },
     "he": {
         "kana": "へ",
         "roumaji": "he",
         "type": "gojuuon",
-        "audio": "../audio/he.mp3",
-        "mnemonic": "images/mnemonics/he.jpg"
+        "audio": "../audio/he.mp3"
     },
     "ho": {
         "kana": "ほ",
         "roumaji": "ho",
         "type": "gojuuon",
-        "audio": "../audio/ho.mp3",
-        "mnemonic": "images/mnemonics/ho.jpg"
+        "audio": "../audio/ho.mp3"
     },
     "ma": {
         "kana": "ま",
         "roumaji": "ma",
         "type": "gojuuon",
-        "audio": "../audio/ma.mp3",
-        "mnemonic": "images/mnemonics/ma.jpg"
+        "audio": "../audio/ma.mp3"
     },
     "mi": {
         "kana": "み",
         "roumaji": "mi",
         "type": "gojuuon",
-        "audio": "../audio/mi.mp3",
-        "mnemonic": "images/mnemonics/mi.jpg"
+        "audio": "../audio/mi.mp3"
     },
     "mu": {
         "kana": "む",
         "roumaji": "mu",
         "type": "gojuuon",
-        "audio": "../audio/mu.mp3",
-        "mnemonic": "images/mnemonics/mu.jpg"
+        "audio": "../audio/mu.mp3"
     },
     "me": {
         "kana": "め",
         "roumaji": "me",
         "type": "gojuuon",
-        "audio": "../audio/me.mp3",
-        "mnemonic": "images/mnemonics/me.jpg"
+        "audio": "../audio/me.mp3"
     },
     "mo": {
         "kana": "も",
         "roumaji": "mo",
         "type": "gojuuon",
-        "audio": "../audio/mo.mp3",
-        "mnemonic": "images/mnemonics/mo.jpg"
+        "audio": "../audio/mo.mp3"
     },
     "ya": {
         "kana": "や",
         "roumaji": "ya",
         "type": "gojuuon",
-        "audio": "../audio/ya.mp3",
-        "mnemonic": "images/mnemonics/ya.jpg"
+        "audio": "../audio/ya.mp3"
     },
     "yu": {
         "kana": "ゆ",
         "roumaji": "yu",
         "type": "gojuuon",
-        "audio": "../audio/yu.mp3",
-        "mnemonic": "images/mnemonics/yu.jpg"
+        "audio": "../audio/yu.mp3"
     },
     "yo": {
         "kana": "よ",
         "roumaji": "yo",
         "type": "gojuuon",
-        "audio": "../audio/yo.mp3",
-        "mnemonic": "images/mnemonics/yo.jpg"
+        "audio": "../audio/yo.mp3"
     },
     "ra": {
         "kana": "ら",
         "roumaji": "ra",
         "type": "gojuuon",
-        "audio": "../audio/ra.mp3",
-        "mnemonic": "images/mnemonics/ra.jpg"
+        "audio": "../audio/ra.mp3"
     },
     "ri": {
         "kana": "り",
         "roumaji": "ri",
         "type": "gojuuon",
-        "audio": "../audio/ri.mp3",
-        "mnemonic": "images/mnemonics/ri.jpg"
+        "audio": "../audio/ri.mp3"
     },
     "ru": {
         "kana": "る",
         "roumaji": "ru",
         "type": "gojuuon",
-        "audio": "../audio/ru.mp3",
-        "mnemonic": "images/mnemonics/ru.jpg"
+        "audio": "../audio/ru.mp3"
     },
     "re": {
         "kana": "れ",
         "roumaji": "re",
         "type": "gojuuon",
-        "audio": "../audio/re.mp3",
-        "mnemonic": "images/mnemonics/re.jpg"
+        "audio": "../audio/re.mp3"
     },
     "ro": {
         "kana": "ろ",
         "roumaji": "ro",
         "type": "gojuuon",
-        "audio": "../audio/ro.mp3",
-        "mnemonic": "images/mnemonics/ro.jpg"
+        "audio": "../audio/ro.mp3"
     },
     "wa": {
         "kana": "わ",
         "roumaji": "wa",
         "type": "gojuuon",
-        "audio": "../audio/wa.mp3",
-        "mnemonic": "images/mnemonics/wa.jpg"
+        "audio": "../audio/wa.mp3"
     },
     "wo": {
         "kana": "を",
         "roumaji": "wo",
         "type": "gojuuon",
-        "audio": "../audio/wo.mp3",
-        "mnemonic": "images/mnemonics/wo.jpg"
+        "audio": "../audio/wo.mp3"
     },
     "n": {
         "kana": "ん",
         "roumaji": "n",
         "type": "gojuuon",
-        "audio": "../audio/n.mp3",
-        "mnemonic": "images/mnemonics/n.jpg"
+        "audio": "../audio/n.mp3"
     },
     "ga": {
         "kana": "が",
         "roumaji": "ga",
         "type": "dakuon",
-        "audio": "../audio/ga.mp3",
-        "mnemonic": "images/mnemonics/ga.jpg"
+        "audio": "../audio/ga.mp3"
     },
     "gi": {
         "kana": "ぎ",
         "roumaji": "gi",
         "type": "dakuon",
-        "audio": "../audio/gi.mp3",
-        "mnemonic": "images/mnemonics/gi.jpg"
+        "audio": "../audio/gi.mp3"
     },
     "gu": {
         "kana": "ぐ",
         "roumaji": "gu",
         "type": "dakuon",
-        "audio": "../audio/gu.mp3",
-        "mnemonic": "images/mnemonics/gu.jpg"
+        "audio": "../audio/gu.mp3"
     },
     "ge": {
         "kana": "げ",
         "roumaji": "ge",
         "type": "dakuon",
-        "audio": "../audio/ge.mp3",
-        "mnemonic": "images/mnemonics/ge.jpg"
+        "audio": "../audio/ge.mp3"
     },
     "go": {
         "kana": "ご",
         "roumaji": "go",
         "type": "dakuon",
-        "audio": "../audio/go.mp3",
-        "mnemonic": "images/mnemonics/go.jpg"
+        "audio": "../audio/go.mp3"
     },
     "za": {
         "kana": "ざ",
         "roumaji": "za",
         "type": "dakuon",
-        "audio": "../audio/za.mp3",
-        "mnemonic": "images/mnemonics/za.jpg"
+        "audio": "../audio/za.mp3"
     },
     "ji": {
         "kana": "じ",
         "roumaji": "ji",
         "type": "dakuon",
-        "audio": "../audio/ji.mp3",
-        "mnemonic": "images/mnemonics/ji.jpg"
+        "audio": "../audio/ji.mp3"
     },
     "zu": {
         "kana": "ず",
         "roumaji": "zu",
         "type": "dakuon",
-        "audio": "../audio/zu.mp3",
-        "mnemonic": "images/mnemonics/zu.jpg"
+        "audio": "../audio/zu.mp3"
     },
     "ze": {
         "kana": "ぜ",
         "roumaji": "ze",
         "type": "dakuon",
-        "audio": "../audio/ze.mp3",
-        "mnemonic": "images/mnemonics/ze.jpg"
+        "audio": "../audio/ze.mp3"
     },
     "zo": {
         "kana": "ぞ",
         "roumaji": "zo",
         "type": "dakuon",
-        "audio": "../audio/zo.mp3",
-        "mnemonic": "images/mnemonics/zo.jpg"
+        "audio": "../audio/zo.mp3"
     },
     "da": {
         "kana": "だ",
         "roumaji": "da",
         "type": "dakuon",
-        "audio": "../audio/da.mp3",
-        "mnemonic": "images/mnemonics/da.jpg"
+        "audio": "../audio/da.mp3"
     },
     "ji": {
         "kana": "ぢ",
         "roumaji": "ji",
         "type": "dakuon",
-        "audio": "../audio/ji.mp3",
-        "mnemonic": "images/mnemonics/ji.jpg"
+        "audio": "../audio/ji.mp3"
     },
     "zu": {
         "kana": "づ",
         "roumaji": "zu",
         "type": "dakuon",
-        "audio": "../audio/zu.mp3",
-        "mnemonic": "images/mnemonics/zu.jpg"
+        "audio": "../audio/zu.mp3"
     },
     "de": {
         "kana": "で",
         "roumaji": "de",
         "type": "dakuon",
-        "audio": "../audio/de.mp3",
-        "mnemonic": "images/mnemonics/de.jpg"
+        "audio": "../audio/de.mp3"
     },
     "do": {
         "kana": "ど",
         "roumaji": "do",
         "type": "dakuon",
-        "audio": "../audio/do.mp3",
-        "mnemonic": "images/mnemonics/do.jpg"
+        "audio": "../audio/do.mp3"
     },
     "ba": {
         "kana": "ば",
         "roumaji": "ba",
         "type": "dakuon",
-        "audio": "../audio/ba.mp3",
-        "mnemonic": "images/mnemonics/ba.jpg"
+        "audio": "../audio/ba.mp3"
     },
     "bi": {
         "kana": "び",
         "roumaji": "bi",
         "type": "dakuon",
-        "audio": "../audio/bi.mp3",
-        "mnemonic": "images/mnemonics/bi.jpg"
+        "audio": "../audio/bi.mp3"
     },
     "bu": {
         "kana": "ぶ",
         "roumaji": "bu",
         "type": "dakuon",
-        "audio": "../audio/bu.mp3",
-        "mnemonic": "images/mnemonics/bu.jpg"
+        "audio": "../audio/bu.mp3"
     },
     "be": {
         "kana": "べ",
         "roumaji": "be",
         "type": "dakuon",
-        "audio": "../audio/be.mp3",
-        "mnemonic": "images/mnemonics/be.jpg"
+        "audio": "../audio/be.mp3"
     },
     "bo": {
         "kana": "ぼ",
         "roumaji": "bo",
         "type": "dakuon",
-        "audio": "../audio/bo.mp3",
-        "mnemonic": "images/mnemonics/bo.jpg"
+        "audio": "../audio/bo.mp3"
     },
     "pa": {
         "kana": "ぱ",
         "roumaji": "pa",
         "type": "handakuon",
-        "audio": "../audio/pa.mp3",
-        "mnemonic": "images/mnemonics/pa.jpg"
+        "audio": "../audio/pa.mp3"
     },
     "pi": {
         "kana": "ぴ",
         "roumaji": "pi",
         "type": "handakuon",
-        "audio": "../audio/pi.mp3",
-        "mnemonic": "images/mnemonics/pi.jpg"
+        "audio": "../audio/pi.mp3"
     },
     "pu": {
         "kana": "ぷ",
         "roumaji": "pu",
         "type": "handakuon",
-        "audio": "../audio/pu.mp3",
-        "mnemonic": "images/mnemonics/pu.jpg"
+        "audio": "../audio/pu.mp3"
     },
     "pe": {
         "kana": "ぺ",
         "roumaji": "pe",
         "type": "handakuon",
-        "audio": "../audio/pe.mp3",
-        "mnemonic": "images/mnemonics/pe.jpg"
+        "audio": "../audio/pe.mp3"
     },
     "po": {
         "kana": "ぽ",
         "roumaji": "po",
         "type": "handakuon",
-        "audio": "../audio/po.mp3",
-        "mnemonic": "images/mnemonics/po.jpg"
+        "audio": "../audio/po.mp3"
     },
     "(pause)": {
         "kana": "っ",
         "roumaji": "(pause)",
         "type": "sokuon",
-        "audio": "(../audio/pause.mp3)",
-        "mnemonic": "images/mnemonics/pause.jpg"
+        "audio": "(../audio/pause.mp3)"
     },
     "kya": {
         "kana": "きゃ",
         "roumaji": "kya",
         "type": "youon",
-        "audio": "../audio/kya.mp3",
-        "mnemonic": "images/mnemonics/kya.jpg"
+        "audio": "../audio/kya.mp3"
     },
     "kyu": {
         "kana": "きゅ",
         "roumaji": "kyu",
         "type": "youon",
-        "audio": "../audio/kyu.mp3",
-        "mnemonic": "images/mnemonics/kyu.jpg"
+        "audio": "../audio/kyu.mp3"
     },
     "kyo": {
         "kana": "きょ",
         "roumaji": "kyo",
         "type": "youon",
-        "audio": "../audio/kyo.mp3",
-        "mnemonic": "images/mnemonics/kyo.jpg"
+        "audio": "../audio/kyo.mp3"
     },
     "sha": {
         "kana": "しゃ",
         "roumaji": "sha",
         "type": "youon",
-        "audio": "../audio/sha.mp3",
-        "mnemonic": "images/mnemonics/sha.jpg"
+        "audio": "../audio/sha.mp3"
     },
     "shu": {
         "kana": "しゅ",
         "roumaji": "shu",
         "type": "youon",
-        "audio": "../audio/shu.mp3",
-        "mnemonic": "images/mnemonics/shu.jpg"
+        "audio": "../audio/shu.mp3"
     },
     "sho": {
         "kana": "しょ",
         "roumaji": "sho",
         "type": "youon",
-        "audio": "../audio/sho.mp3",
-        "mnemonic": "images/mnemonics/sho.jpg"
+        "audio": "../audio/sho.mp3"
     },
     "cha": {
         "kana": "ちゃ",
         "roumaji": "cha",
         "type": "youon",
-        "audio": "../audio/cha.mp3",
-        "mnemonic": "images/mnemonics/cha.jpg"
+        "audio": "../audio/cha.mp3"
     },
     "chu": {
         "kana": "ちゅ",
         "roumaji": "chu",
         "type": "youon",
-        "audio": "../audio/chu.mp3",
-        "mnemonic": "images/mnemonics/chu.jpg"
+        "audio": "../audio/chu.mp3"
     },
     "cho": {
         "kana": "ちょ",
         "roumaji": "cho",
         "type": "youon",
-        "audio": "../audio/cho.mp3",
-        "mnemonic": "images/mnemonics/cho.jpg"
+        "audio": "../audio/cho.mp3"
     },
     "nya": {
         "kana": "にゃ",
         "roumaji": "nya",
         "type": "youon",
-        "audio": "../audio/nya.mp3",
-        "mnemonic": "images/mnemonics/nya.jpg"
+        "audio": "../audio/nya.mp3"
     },
     "nyu": {
         "kana": "にゅ",
         "roumaji": "nyu",
         "type": "youon",
-        "audio": "../audio/nyu.mp3",
-        "mnemonic": "images/mnemonics/nyu.jpg"
+        "audio": "../audio/nyu.mp3"
     },
     "nyo": {
         "kana": "にょ",
         "roumaji": "nyo",
         "type": "youon",
-        "audio": "../audio/nyo.mp3",
-        "mnemonic": "images/mnemonics/nyo.jpg"
+        "audio": "../audio/nyo.mp3"
     },
     "hya": {
         "kana": "ひゃ",
         "roumaji": "hya",
         "type": "youon",
-        "audio": "../audio/hya.mp3",
-        "mnemonic": "images/mnemonics/hya.jpg"
+        "audio": "../audio/hya.mp3"
     },
     "hyu": {
         "kana": "ひゅ",
         "roumaji": "hyu",
         "type": "youon",
-        "audio": "../audio/hyu.mp3",
-        "mnemonic": "images/mnemonics/hyu.jpg"
+        "audio": "../audio/hyu.mp3"
     },
     "hyo": {
         "kana": "ひょ",
         "roumaji": "hyo",
         "type": "youon",
-        "audio": "../audio/hyo.mp3",
-        "mnemonic": "images/mnemonics/hyo.jpg"
+        "audio": "../audio/hyo.mp3"
     },
     "mya": {
         "kana": "みゃ",
         "roumaji": "mya",
         "type": "youon",
-        "audio": "../audio/mya.mp3",
-        "mnemonic": "images/mnemonics/mya.jpg"
+        "audio": "../audio/mya.mp3"
     },
     "myu": {
         "kana": "みゅ",
         "roumaji": "myu",
         "type": "youon",
-        "audio": "../audio/myu.mp3",
-        "mnemonic": "images/mnemonics/myu.jpg"
+        "audio": "../audio/myu.mp3"
     },
     "myo": {
         "kana": "みょ",
         "roumaji": "myo",
         "type": "youon",
-        "audio": "../audio/myo.mp3",
-        "mnemonic": "images/mnemonics/myo.jpg"
+        "audio": "../audio/myo.mp3"
     },
     "rya": {
         "kana": "りゃ",
         "roumaji": "rya",
         "type": "youon",
-        "audio": "../audio/rya.mp3",
-        "mnemonic": "images/mnemonics/rya.jpg"
+        "audio": "../audio/rya.mp3"
     },
     "ryu": {
         "kana": "りゅ",
         "roumaji": "ryu",
         "type": "youon",
-        "audio": "../audio/ryu.mp3",
-        "mnemonic": "images/mnemonics/ryu.jpg"
+        "audio": "../audio/ryu.mp3"
     },
     "ryo": {
         "kana": "りょ",
         "roumaji": "ryo",
         "type": "youon",
-        "audio": "../audio/ryo.mp3",
-        "mnemonic": "images/mnemonics/ryo.jpg"
+        "audio": "../audio/ryo.mp3"
     },
     "gya": {
         "kana": "ぎゃ",
         "roumaji": "gya",
         "type": "youon",
-        "audio": "../audio/gya.mp3",
-        "mnemonic": "images/mnemonics/gya.jpg"
+        "audio": "../audio/gya.mp3"
     },
     "gyu": {
         "kana": "ぎゅ",
         "roumaji": "gyu",
         "type": "youon",
-        "audio": "../audio/gyu.mp3",
-        "mnemonic": "images/mnemonics/gyu.jpg"
+        "audio": "../audio/gyu.mp3"
     },
     "gyo": {
         "kana": "ぎょ",
         "roumaji": "gyo",
         "type": "youon",
-        "audio": "../audio/gyo.mp3",
-        "mnemonic": "images/mnemonics/gyo.jpg"
+        "audio": "../audio/gyo.mp3"
     },
     "ja": {
         "kana": "じゃ",
         "roumaji": "ja",
         "type": "youon",
-        "audio": "../audio/ja.mp3",
-        "mnemonic": "images/mnemonics/ja.jpg"
+        "audio": "../audio/ja.mp3"
     },
     "ju": {
         "kana": "じゅ",
         "roumaji": "ju",
         "type": "youon",
-        "audio": "../audio/ju.mp3",
-        "mnemonic": "images/mnemonics/ju.jpg"
+        "audio": "../audio/ju.mp3"
     },
     "jo": {
         "kana": "じょ",
         "roumaji": "jo",
         "type": "youon",
-        "audio": "../audio/jo.mp3",
-        "mnemonic": "images/mnemonics/jo.jpg"
+        "audio": "../audio/jo.mp3"
     },
     "bya": {
         "kana": "びゃ",
         "roumaji": "bya",
         "type": "youon",
-        "audio": "../audio/bya.mp3",
-        "mnemonic": "images/mnemonics/bya.jpg"
+        "audio": "../audio/bya.mp3"
     },
     "byu": {
         "kana": "びゅ",
         "roumaji": "byu",
         "type": "youon",
-        "audio": "../audio/byu.mp3",
-        "mnemonic": "images/mnemonics/byu.jpg"
+        "audio": "../audio/byu.mp3"
     },
     "byo": {
         "kana": "びょ",
         "roumaji": "byo",
         "type": "youon",
-        "audio": "../audio/byo.mp3",
-        "mnemonic": "images/mnemonics/byo.jpg"
+        "audio": "../audio/byo.mp3"
     },
     "pya": {
         "kana": "ぴゃ",
         "roumaji": "pya",
         "type": "youon",
-        "audio": "../audio/pya.mp3",
-        "mnemonic": "images/mnemonics/pya.jpg"
+        "audio": "../audio/pya.mp3"
     },
     "pyu": {
         "kana": "ぴゅ",
         "roumaji": "pyu",
         "type": "youon",
-        "audio": "../audio/pyu.mp3",
-        "mnemonic": "images/mnemonics/pyu.jpg"
+        "audio": "../audio/pyu.mp3"
     },
     "pyo": {
         "kana": "ぴょ",
         "roumaji": "pyo",
         "type": "youon",
-        "audio": "../audio/pyo.mp3",
-        "mnemonic": "images/mnemonics/pyo.jpg"
+        "audio": "../audio/pyo.mp3"
     }
 }

@@ -4,6 +4,8 @@
   "description": "clickable soundboard for learning kana script",
   "main": "index.js",
   "scripts": {
+    "compile-images": "node ./data/toBase64.js",
+    "prebuild": "npm run compile-images",
     "build": "rollup -c rollup.config.js",
     "preserve": "npm run build",
     "serve": "es-dev-server --app-index index.html --node-resolve --watch --open",
@@ -27,5 +29,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.0",
     "es-dev-server": "^1.52.0"
-  }
+  },
+  "type": "module"
 }

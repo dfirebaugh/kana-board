@@ -58,7 +58,7 @@ class RoumajiReveal extends LitElement {
         if (!this.img) return;
 
         return html`
-            <img src="${this.img}" />
+            <img src="data:image/jpg;base64, ${this.img}" />
         `;
     }
 
