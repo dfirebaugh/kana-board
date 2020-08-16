@@ -4,6 +4,7 @@
  */
 import { LitElement, html, css } from "lit-element";
 import kanas from "../data/kanas_with_images";
+import AnkiService from "./AnkiService";
 import "./components/character-card";
 import "./components/roumaji-reveal";
 import "./components/kana-controls";
@@ -50,57 +51,58 @@ class HiraganaApp extends LitElement {
     `;
     }
     static get properties() { 
-        return { random: { type: Boolean } };
+        return { single: { type: Boolean } };
     }
 
-    set random(bool) {
-        let oldVal = this._random;
-        this._random = !this._random;
-        this.requestUpdate('random', oldVal);
+    set single(bool) {
+        let oldVal = this._single;
+        this._single = !this._single;
+        this.requestUpdate('single', oldVal);
     }
-
-    get random() {
-        return this._random;
+    
+    get single() {
+        return this._single;
     }
-
-
+    
+    
     constructor() {
         super();
 
-        this.random = true;
+        this.single = true;
     }
 
     updated() {
         const kanaControls = this.shadowRoot.querySelector("kana-controls")
-        const randomCard = this.shadowRoot.querySelector("#randomCard")
+        const singleCard = this.shadowRoot.querySelector("#singlCard")
 
         if (kanaControls) {
-            kanaControls.updateRandomState = bool => {
-                this.random = bool;
+            kanaControls.updatesingleState = bool => {
+                this.single = bool;
             };
         }
 
-        if (randomCard) {
-            randomCard.randomCardCallback = this.handleRandomClick.bind(this);
+        if (singleCard) {
+            singleCard.nextCardCallback = this.handlesingleClick.bind(this);
+            singleCard.requestParentRender = this.requestUpdate.bind(this);
         }
     }
 
     renderCards() {
         const cards = hiragana.map(character => {
-            return html`<character-card @click=${this.changeRandom} .character=${character}></character-card>`
+            return html`<character-card .character=${character}></character-card>`
         })
 
         return cards
     }
 
-    handleRandomClick() {
+    handlesingleClick() {
         this.requestUpdate();
     }
 
-    randomCard() {
-        const randomKey = Object.keys(kanas)[Math.floor(Math.random() * Object.keys(kanas).length)]
+    singleCard() {
+        const nextKey = AnkiService.getNext().roumaji;
         return html`
-        <character-card id="randomCard" .character=${kanas[randomKey]} single></character-card>
+        <character-card id="singlCard" weight=${AnkiService.getKanaWeight(nextKey)} .character=${kanas[nextKey]} single></character-card>
         `
     }
 
@@ -197,8 +199,8 @@ class HiraganaApp extends LitElement {
     }
 
     render() {
-        return html`<kana-controls random=${this.random} ></kana-controls>
-            ${this.random ? this.randomCard() : this.renderBoard()}`
+        return html`<kana-controls single=${this.single} ></kana-controls>
+            ${this.single ? this.singleCard() : this.renderBoard()}`
     }
 }
 

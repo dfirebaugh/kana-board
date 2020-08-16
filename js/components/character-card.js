@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit-element";
 import theme from "../../themes/main-theme";
+import AnkiService from "../AnkiService";
 
 class CharacterCard extends LitElement {
     static get properties() {
@@ -88,6 +89,11 @@ class CharacterCard extends LitElement {
               background-color: ${theme.red};
           }
 
+          anki-btn-container h3 {
+              grid-column-start: 1;
+              grid-column-end: 3;
+          }
+
           next-card {
               background-color: ${theme.gray};
           }
@@ -111,21 +117,23 @@ class CharacterCard extends LitElement {
     }
     
     handleNextClick() {
-        this.randomCardCallback();
+        this.nextCardCallback();
     }
 
     /**
      * handleAnkiGoodClick - this signifies that we know the card well and don't need to see it as often
      */
     handleAnkiGoodClick() {
-
+        AnkiService.incrementKanaWeight();
+        this.requestParentRender();
     }
 
     /**
      * handleAnkiBadClick - this signisfies that we don't know the card well so we need to see it more often
      */
     handleAnkiBadClick() {
-
+        AnkiService.decrementKanaWeight();
+        this.requestParentRender();
     }
 
     handleMnemonicClick() {
@@ -143,12 +151,12 @@ class CharacterCard extends LitElement {
     renderAnkiControls() {
         if (!this.single) return;
 
+        // {<next-card @click="${this.handleNextClick}">next</next-card>}
         return html`
         <anki-btn-container>
-            <bad @click="${this.handleAnkiBadClick}">-</bad>
-            <good @click="${this.handleAnkiGoodClick}">+</good>
+            <bad @click="${this.handleAnkiBadClick}">I had trouble with this</bad>
+            <good @click="${this.handleAnkiGoodClick}">I know this</good>
         </anki-btn-container>
-        <next-card @click="${this.handleNextClick}">next</next-card>
     `
     }
 
@@ -159,6 +167,7 @@ class CharacterCard extends LitElement {
                 ${this.character.mnemonic && html`<reveal-mnemonic @click="${this.handleMnemonicClick}">mnemonic</reveal-mnemonic>`}
                 ${this.renderAnkiControls()}
             </controls-container>
+            <h3>weight: ${AnkiService.getKanaWeight(this.character.roumaji)}</h3>
         `;
     }
 

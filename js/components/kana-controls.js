@@ -3,24 +3,24 @@ import { LitElement, html, css } from "lit-element";
 class KanaControls extends LitElement {
     static get properties() {
         return {
-            random: {
-                attribute: "random",
+            single: {
+                attribute: "single",
             }
         }
     }
 
     static get properties() { 
-        return { random: { type: Boolean } };
+        return { single: { type: Boolean } };
     }
 
-    set random(bool) {
-        let oldVal = this._random;
-        this._random = bool;
-        this.requestUpdate('random', oldVal);
+    set single(bool) {
+        let oldVal = this._single;
+        this._single = bool;
+        this.requestUpdate('single', oldVal);
     }
 
-    get random() {
-        return this._random;
+    get single() {
+        return this._single;
     }
 
     constructor() {
@@ -96,22 +96,22 @@ class KanaControls extends LitElement {
     }
 
     firstUpdated() {
-      console.log("this random", this.random)
-        if (this.random) {
+      console.log("this single", this.single)
+        if (this.single) {
             this.shadowRoot.querySelector("input").setAttribute("checked", "true");
         }
     }
 
-    handleRandomToggleClick(e) {
-        this.updateRandomState();
+    handlesingleToggleClick(e) {
+        this.updatesingleState();
     }
 
     render() {
         return html`
         <controls-container>
-        <label> random kana: </label>
+        <label> single kana: </label>
         <label class="switch">
-            <input @click=${this.handleRandomToggleClick} type="checkbox">
+            <input @click=${this.handlesingleToggleClick} type="checkbox">
             <span class="slider round"></span>
         </label>
         </controls-container>
