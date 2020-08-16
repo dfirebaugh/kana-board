@@ -129,6 +129,8 @@ class CharacterCard extends LitElement {
     }
 
     handleMnemonicClick() {
+        if(!this.character.mnemonic) return;
+
         const mnemonicReveal = document.createElement("roumaji-reveal");
         mnemonicReveal.setAttribute("img", `${this.character.mnemonic}`);
         this.shadowRoot.appendChild(mnemonicReveal);
@@ -154,7 +156,7 @@ class CharacterCard extends LitElement {
         return html`
             <controls-container>
                 <reveal @click="${this.handleCardClick}" >roumaji</reveal>
-                <reveal-mnemonic @click="${this.handleMnemonicClick}">mnemonic</reveal-mnemonic>
+                ${this.character.mnemonic && html`<reveal-mnemonic @click="${this.handleMnemonicClick}">mnemonic</reveal-mnemonic>`}
                 ${this.renderAnkiControls()}
             </controls-container>
         `;
