@@ -145,8 +145,8 @@ class CharacterCard extends LitElement {
 
         return html`
         <anki-btn-container>
-            <good @click="${this.handleAnkiGoodClick}">+</good>
             <bad @click="${this.handleAnkiBadClick}">-</bad>
+            <good @click="${this.handleAnkiGoodClick}">+</good>
         </anki-btn-container>
         <next-card @click="${this.handleNextClick}">next</next-card>
     `
