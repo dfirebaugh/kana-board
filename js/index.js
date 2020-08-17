@@ -103,7 +103,14 @@ class HiraganaApp extends LitElement {
         const nextKey = AnkiService.getNext().roumaji;
         return html`
         <character-card id="singlCard" weight=${AnkiService.getKanaWeight(nextKey)} .character=${kanas[nextKey]} single></character-card>
+        <button @click="${this.resetLocalStorage}"> reset </button>
         `
+    }
+
+    resetLocalStorage() {
+        localStorage.removeItem("kanaQueues");
+        alert(`local storage reset`);
+        location.reload();
     }
 
     renderBoard() {
