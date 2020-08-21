@@ -163,11 +163,10 @@ class CharacterCard extends LitElement {
     renderInputs() {
         return html`
             <controls-container>
-                <reveal @click="${this.handleCardClick}" >roumaji</reveal>
+                <reveal @click="${this.handleCardClick}" >romaji</reveal>
                 ${this.character.mnemonic && html`<reveal-mnemonic @click="${this.handleMnemonicClick}">mnemonic</reveal-mnemonic>`}
                 ${this.renderAnkiControls()}
             </controls-container>
-            <h3>weight: ${AnkiService.getKanaWeight(this.character.roumaji)}</h3>
         `;
     }
 
