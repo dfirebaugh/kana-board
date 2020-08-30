@@ -1,16 +1,12 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css, property } from "lit-element";
 
-class RoumajiReveal extends LitElement {
-    static get properties() {
-        return {
-            roumaji: {
-                attribute: "roumaji",
-            },
-            img: {
-                attribute: "img"
-            }
-        }
-    }
+class RomajiReveal extends LitElement {
+    @property({attribute: "romaji"})
+    romaji;
+    @property({attribute: "img"})
+    img;
+    opacity: number;
+    randomCardCallback: any;
 
     static get styles() {
         return css`
@@ -55,18 +51,18 @@ class RoumajiReveal extends LitElement {
     }
 
     renderImg() {
-        if (!this.img) return;
+        if (!this.img) return null;
 
         return html`
             <img src="data:image/jpg;base64, ${this.img}" />
         `;
     }
 
-    renderRoumaji() {
-        if(!this.roumaji) return;
+    renderRomaji() {
+        if(!this.romaji) return null;
 
         return html`
-            <h1>${this.roumaji}</h1>
+            <h1>${this.romaji}</h1>
         `;
     }
 
@@ -78,11 +74,11 @@ class RoumajiReveal extends LitElement {
         }
         </style>
         <container @click="${this.fadeAway}" class="noselect">
-            ${this.renderRoumaji()}
+            ${this.renderRomaji()}
             ${this.renderImg()}
         </container>
       `;
     }
 }
 
-customElements.define("roumaji-reveal", RoumajiReveal);
+customElements.define("romaji-reveal", RomajiReveal);

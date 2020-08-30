@@ -1,11 +1,6 @@
 /**
- * service that will allow us to store and retrieve 
- * weights of our kana cards so that we may manipulate the frequency
- * 
- * This is so that we can see the kanas that we don't know
- * more often than the ones that we do know
+ * service that will allow us to store and retrieve from localStorage
  */
-
 function LocalStorageDriver(kanas) {
     /**
      * kanaQueues is what we actually store in the browsers localStorage
@@ -46,16 +41,6 @@ function LocalStorageDriver(kanas) {
     }
 
     function getCurrentWeight() {
-        // if ((Number(kanaQueues.current)) % kanaQueues[0].length == 0 && kanaQueues[1].length > 0) {
-        //     console.log("weight is 1: ", kanaQueues, kanaQueues.current)
-        //     return 1;
-        // }
-
-        // if ((Number(kanaQueues.current)) % (kanaQueues[0].length + kanaQueues[1].length) == 0 && kanaQueues[1].length > 0) {
-        //     console.log("weight is 2: ", kanaQueues, kanaQueues.current)
-        //     return 2;
-        // }
-
         /* handle the case that we have zero kanas in both 0 and 1 weights */
         if (kanaQueues[0].length == 0 && kanaQueues[1].length == 0) {
             return 2;
@@ -75,8 +60,6 @@ function LocalStorageDriver(kanas) {
      */
     function initializekanaQueues() {
         const existingLocalStorage = getLocalStorage();
-
-        console.log(existingLocalStorage);
 
         if (!existingLocalStorage) {
             Object.keys(kanas).forEach(key => {
@@ -143,7 +126,7 @@ function LocalStorageDriver(kanas) {
 
     /**
      * getNext
-     * @returns {String} - returns a roumaji string that will be used as the key of the next kana card
+     * @returns {String} - returns a romaji string that will be used as the key of the next kana card
      */
     function getNext() {
         const nextKana = kanas[next()];

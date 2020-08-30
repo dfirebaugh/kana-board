@@ -23,14 +23,13 @@ const kanasObj = {
  */
 Object.keys(kanas).forEach(key => {
     kanasObj[key] = Object.assign({}, kanas[key], {
-        mnemonic: base64_encode(`./data/images/mnemonics/${kanas[key].roumaji}.jpg`)
+        mnemonic: base64_encode(`./src/data/images/mnemonics/${kanas[key].romaji}.jpg`)
     });
 })
 
 const OutputString = `export default ${JSON.stringify(kanasObj)}`;
 
-// console.log(OutputString)
-fs.writeFile(`./data/kanas_with_images.js`, OutputString, function (err) {
+fs.writeFile(`./src/js/kanas_with_images.ts`, OutputString, function (err) {
     if (err) {
         console.error(err);
     }

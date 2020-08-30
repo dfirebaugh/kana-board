@@ -1,3 +1,5 @@
 node_modules
+tsconfig.tsbuildinfo
 bundled.js
-data/kanas_with_images.js
+kanas_with_images.ts
+build/

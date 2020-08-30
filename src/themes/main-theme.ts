@@ -7,5 +7,4 @@ export default {
     gray: css`gray`,
     darkGray: css`darkgray`,
     lightBlue: css`aliceblue`,
-
 };

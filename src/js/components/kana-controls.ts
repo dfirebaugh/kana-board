@@ -1,38 +1,19 @@
 import { LitElement, html, css } from "lit-element";
+import KanaState from "../services/KanaState";
 
 class KanaControls extends LitElement {
-    static get properties() {
-        return {
-            single: {
-                attribute: "single",
-            }
-        }
-    }
-
-    static get properties() { 
-        return { single: { type: Boolean } };
-    }
-
-    set single(bool) {
-        let oldVal = this._single;
-        this._single = bool;
-        this.requestUpdate('single', oldVal);
-    }
-
-    get single() {
-        return this._single;
-    }
-
-    constructor() {
-        super();
-    }
-
-    static get styles() {
-        return css`
+  static get styles() {
+    return css`
         controls-container {
           display: grid;
           margin: 3rem;
+          grid-template-columns: auto auto auto;
         }
+
+        toggle-container {
+          display: grid;
+        }
+
         .switch {
             position: relative;
             display: inline-block;
@@ -93,30 +74,67 @@ class KanaControls extends LitElement {
             border-radius: 50%;
           }
     `;
-    }
+  }
 
-    firstUpdated() {
-      console.log("this single", this.single)
-        if (this.single) {
-            this.shadowRoot.querySelector("input").setAttribute("checked", "true");
-        }
+  firstUpdated() {
+    if (KanaState.get().single) {
+      this.shadowRoot.querySelector("input").setAttribute("checked", "true");
     }
+  }
 
-    handlesingleToggleClick(e) {
-        this.updatesingleState();
-    }
+  handleSingleToggleClick() {
+    KanaState.update({
+      single: !KanaState.get().single
+    });
+    const event = new CustomEvent('control-changed', {
+      detail: KanaState.get()
+    });
+    this.dispatchEvent(event);
+  }
 
-    render() {
-        return html`
+  resetLocalStorage() {
+    localStorage.removeItem("kanaQueues");
+    alert(`local storage reset`);
+    location.reload();
+  }
+
+  renderSingleToggle() {
+    return html`
+    <toggle-container>
+      <label> single kana: </label>
+      <label class="switch">
+        <input @click=${this.handleSingleToggleClick} type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </toggle-container>
+  `;
+  }
+
+
+  /**
+   * not implemented yet
+   */
+  renderHiraganaKatakanaToggle() {
+    return html`
+    <toggle-container>
+      <label> hiragana/katakana: </label>
+      <label class="switch">
+        <input @click="${() => alert("not implemented yet")}" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </toggle-container>
+  `;
+  }
+
+  render() {
+    return html`
         <controls-container>
-        <label> single kana: </label>
-        <label class="switch">
-            <input @click=${this.handlesingleToggleClick} type="checkbox">
-            <span class="slider round"></span>
-        </label>
+          ${this.renderSingleToggle()}
+          ${this.renderHiraganaKatakanaToggle()}
+          <button @click="${this.resetLocalStorage}"> reset </button>
         </controls-container>
       `;
-    }
+  }
 }
 
 customElements.define("kana-controls", KanaControls);

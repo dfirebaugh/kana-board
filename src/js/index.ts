@@ -3,30 +3,23 @@
  * 
  */
 import { LitElement, html, css } from "lit-element";
-import kanas from "../data/kanas_with_images";
-import AnkiService from "./AnkiService";
+import KanaState from "./services/KanaState";
+import kanas from "./kanas_with_images";
+import SRSService from "./services/SRSService";
 import "./components/character-card";
-import "./components/roumaji-reveal";
+import "./components/romaji-reveal";
 import "./components/kana-controls";
 
 const mountPoint = document.getElementById("hiragana")
-
-class HiraganaApp extends LitElement {
+class KanaApp extends LitElement {
     static get styles() {
         return css`
         cards-grid-container {
             display: grid;
             grid-auto-flow: column;
             grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-            grid-gap: 1rem;
         }
 
-        cards-column {
-            display: flex;
-            width: 5vw;
-            flex-wrap: wrap;
-            margin-left: 1vw;
-        }
 
         top-label {
             display: grid;
@@ -46,89 +39,61 @@ class HiraganaApp extends LitElement {
         
         character-card {
             width: 100%;
-            margin-bottom: 1vh;
+        }
+
+        .empty {
+            border: 0;
         }
     `;
     }
-    static get properties() { 
-        return { single: { type: Boolean } };
-    }
-
-    set single(bool) {
-        let oldVal = this._single;
-        this._single = !this._single;
-        this.requestUpdate('single', oldVal);
-    }
-    
-    get single() {
-        return this._single;
-    }
-    
-    
-    constructor() {
-        super();
-
-        this.single = true;
-    }
-
-    updated() {
-        const kanaControls = this.shadowRoot.querySelector("kana-controls")
-        const singleCard = this.shadowRoot.querySelector("#singlCard")
-
-        if (kanaControls) {
-            kanaControls.updatesingleState = bool => {
-                this.single = bool;
-            };
-        }
-
-        if (singleCard) {
-            singleCard.nextCardCallback = this.handlesingleClick.bind(this);
-            singleCard.requestParentRender = this.requestUpdate.bind(this);
-        }
-    }
 
     renderCards() {
-        const cards = hiragana.map(character => {
+        const cards = Object.values(kanas).map(character => {
             return html`<character-card .character=${character}></character-card>`
         })
 
         return cards
     }
 
-    handlesingleClick() {
+    updateFromControls() {
+        this.requestUpdate()
+    }
+
+    updateFromCard() {
         this.requestUpdate();
     }
 
-    singleCard() {
-        const nextKey = AnkiService.getNext().roumaji;
+    renderSingleCard() {
+        const nextKey = SRSService.getNext().romaji;
         return html`
-        <character-card id="singlCard" weight=${AnkiService.getKanaWeight(nextKey)} .character=${kanas[nextKey]} single></character-card>
-        <button @click="${this.resetLocalStorage}"> reset </button>
+        <character-card 
+            @card-event="${this.updateFromCard}"
+            id="singlCard" 
+            weight=${SRSService.getKanaWeight()} 
+            .character=${kanas[nextKey]} single>
+        </character-card>
         `
-    }
-
-    resetLocalStorage() {
-        localStorage.removeItem("kanaQueues");
-        alert(`local storage reset`);
-        location.reload();
     }
 
     renderBoard() {
         return html`
+        <style>
+        character-card {border: solid 2px;}
+        </style>
         <cards-grid-container>
 
             <top-label> * </top-label>
             <character-card .character=${kanas.n}></character-card>
-            <character-card></character-card>
-            <character-card></character-card>
-            <character-card></character-card>
-            <character-card></character-card>
+            <character-card class="empty"></character-card>
+            <character-card class="empty"></character-card>
+            <character-card class="empty"></character-card>
+            <character-card class="empty"></character-card>
 
             <top-label> w </top-label>
             <character-card .character=${kanas.wa}></character-card>
-            <character-card></character-card>
-            <character-card></character-card>
-            <character-card></character-card>
+            <character-card class="empty"></character-card>
+            <character-card class="empty"></character-card>
+            <character-card class="empty"></character-card>
             <character-card .character=${kanas.wo}></character-card>
 
             <top-label> r </top-label>
@@ -140,9 +105,9 @@ class HiraganaApp extends LitElement {
 
             <top-label> y </top-label>
             <character-card .character=${kanas.ya}></character-card>
-            <character-card></character-card>
+            <character-card class="empty"></character-card>
             <character-card .character=${kanas.yu}></character-card>
-            <character-card></character-card>
+            <character-card class="empty"></character-card>
             <character-card .character=${kanas.yo}></character-card>
 
             <top-label> m </top-label>
@@ -206,14 +171,17 @@ class HiraganaApp extends LitElement {
     }
 
     render() {
-        return html`<kana-controls single=${this.single} ></kana-controls>
-            ${this.single ? this.singleCard() : this.renderBoard()}`
+        return html`
+            <kana-controls 
+                @control-changed="${this.updateFromControls}" >
+            </kana-controls>
+            ${KanaState.get().single ? this.renderSingleCard() : this.renderBoard()}`
     }
 }
 
-customElements.define("hiragana-app", HiraganaApp);
+customElements.define("kana-app", KanaApp);
 
 /**
  * Mount the app into the DOM
  */
-mountPoint.appendChild(document.createElement("hiragana-app"));
+mountPoint.appendChild(document.createElement("kana-app"));

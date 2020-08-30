@@ -1,27 +1,11 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css, property } from "lit-element";
 import theme from "../../themes/main-theme";
-import AnkiService from "../AnkiService";
+import SRSService from "../services/SRSService";
+import KanaState from "../services/KanaState";
 
 class CharacterCard extends LitElement {
-    static get properties() {
-        return {
-            character: {
-                attribute: "character",
-            },
-            hideRoumaji: {
-                type: Boolean,
-                attribute: "hide-roumaji"
-            },
-            single: {
-                type: Boolean
-            }
-        }
-    }
-
-    constructor() {
-        super();
-        this.character = {};
-    }
+    @property({ attribute: "character" })
+    character;
 
     static get styles() {
         return css`
@@ -39,11 +23,12 @@ class CharacterCard extends LitElement {
             box-shadow: 2px 2px 39px -23px;
             background-color: aliceblue;
             display: inline-block;
+            align-content: end;
         }
 
         h1 {
             text-align: center;
-            font-size: 3rem;
+            font-size: 6rem;
         }
 
         .noselect {
@@ -77,19 +62,19 @@ class CharacterCard extends LitElement {
           }
 
 
-          anki-btn-container {
+          SRS-btn-container {
               grid-template-columns: auto auto;
           }
 
-          anki-btn-container good {
+          SRS-btn-container good {
               background-color: ${theme.green};
           }
 
-          anki-btn-container bad {
+          SRS-btn-container bad {
               background-color: ${theme.red};
           }
 
-          anki-btn-container h3 {
+          SRS-btn-container h3 {
               grid-column-start: 1;
               grid-column-end: 3;
           }
@@ -101,63 +86,56 @@ class CharacterCard extends LitElement {
     `;
     }
 
-    firstUpdated() {
-        if (this.single) {
-            this.shadowRoot.querySelector("container").style.display = "grid";
-            this.shadowRoot.querySelector("container").style.alignContent = "center";
-            this.shadowRoot.querySelector("container").style.height = "50vh";
-            this.shadowRoot.querySelector("h1").style.fontSize = "11rem";
-        }
-    }
-
-    handleCardClick(e) {
-        const roumajiReveal = document.createElement("roumaji-reveal");
-        roumajiReveal.setAttribute("roumaji", this.character.roumaji);
-        this.shadowRoot.appendChild(roumajiReveal);
-    }
-    
-    handleNextClick() {
-        this.nextCardCallback();
+    handleCardClick() {
+        const romajiReveal = document.createElement("romaji-reveal");
+        romajiReveal.setAttribute("romaji", this.character.romaji);
+        this.shadowRoot.appendChild(romajiReveal);
     }
 
     /**
-     * handleAnkiGoodClick - this signifies that we know the card well and don't need to see it as often
+     * handleSRSGoodClick - this signifies that we know the card well and don't need to see it as often
      */
-    handleAnkiGoodClick() {
-        AnkiService.incrementKanaWeight();
-        this.requestParentRender();
+    handleSRSGoodClick() {
+        SRSService.incrementKanaWeight();
+
+        const event = new CustomEvent('card-event', {
+            detail: "good-click"
+        });
+
+        this.dispatchEvent(event);
     }
 
     /**
-     * handleAnkiBadClick - this signisfies that we don't know the card well so we need to see it more often
+     * handleSRSBadClick - this signisfies that we don't know the card well so we need to see it more often
      */
-    handleAnkiBadClick() {
-        AnkiService.decrementKanaWeight();
-        this.requestParentRender();
+    handleSRSBadClick() {
+        SRSService.decrementKanaWeight();
+
+        const event = new CustomEvent('card-event', {
+            detail: "bad-click"
+        });
+
+        this.dispatchEvent(event);
     }
 
     handleMnemonicClick() {
-        if(!this.character.mnemonic) return;
+        if (!this.character.mnemonic) return;
 
-        const mnemonicReveal = document.createElement("roumaji-reveal");
+        const mnemonicReveal = document.createElement("romaji-reveal");
         mnemonicReveal.setAttribute("img", `${this.character.mnemonic}`);
         this.shadowRoot.appendChild(mnemonicReveal);
     }
 
-    renderRoumaji() {
-        if (this.hideRoumaji) return;
-    }
+    renderSRSControls() {
+        if (!KanaState.get().single) return null;
 
-    renderAnkiControls() {
-        if (!this.single) return;
 
-        // {<next-card @click="${this.handleNextClick}">next</next-card>}
         return html`
-        <anki-btn-container>
-            <bad @click="${this.handleAnkiBadClick}">I had trouble with this</bad>
-            <good @click="${this.handleAnkiGoodClick}">I know this</good>
-        </anki-btn-container>
-    `
+            <SRS-btn-container>
+                <bad @click="${this.handleSRSBadClick}">I'm not sure</bad>
+                <good @click="${this.handleSRSGoodClick}">I know this</good>
+            </SRS-btn-container>
+        `
     }
 
     renderInputs() {
@@ -165,24 +143,17 @@ class CharacterCard extends LitElement {
             <controls-container>
                 <reveal @click="${this.handleCardClick}" >romaji</reveal>
                 ${this.character.mnemonic && html`<reveal-mnemonic @click="${this.handleMnemonicClick}">mnemonic</reveal-mnemonic>`}
-                ${this.renderAnkiControls()}
+                ${this.renderSRSControls()}
             </controls-container>
         `;
     }
 
     render() {
-        if(!this.character || !this.character.kana) {
-            return html`
-            <container style="visibility: hidden;" class="noselect">
-                <h1 lang="ja-jp">ゆ</h1>
-            </container>
-            `;
-        }
+        if (!this.character) return null;
 
         return html`
         <container class="noselect">
             <h1 lang="ja-jp">${this.character.kana}</h1>
-            ${this.renderRoumaji()}
             ${this.renderInputs()}
         </container>
       `;
