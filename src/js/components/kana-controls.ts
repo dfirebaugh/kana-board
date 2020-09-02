@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit-element";
 import KanaState from "../services/KanaState";
+import { DECK_SELCTION } from "../types";
 
 class KanaControls extends LitElement {
   static get styles() {
@@ -12,6 +13,7 @@ class KanaControls extends LitElement {
 
         toggle-container {
           display: grid;
+          height: 5vh;
         }
 
         .switch {
@@ -76,16 +78,13 @@ class KanaControls extends LitElement {
     `;
   }
 
-  firstUpdated() {
-    if (KanaState.get().single) {
-      this.shadowRoot.querySelector("input").setAttribute("checked", "true");
+  handleBackToDeckSelection() {
+    if (KanaState.get().appMode != DECK_SELCTION) {
+      KanaState.update({
+        appMode: DECK_SELCTION
+      });
     }
-  }
 
-  handleSingleToggleClick() {
-    KanaState.update({
-      single: !KanaState.get().single
-    });
     const event = new CustomEvent('control-changed', {
       detail: KanaState.get()
     });
@@ -98,30 +97,10 @@ class KanaControls extends LitElement {
     location.reload();
   }
 
-  renderSingleToggle() {
+  renderBackToDeckSelection() {
     return html`
     <toggle-container>
-      <label> single kana: </label>
-      <label class="switch">
-        <input @click=${this.handleSingleToggleClick} type="checkbox">
-        <span class="slider round"></span>
-      </label>
-    </toggle-container>
-  `;
-  }
-
-
-  /**
-   * not implemented yet
-   */
-  renderHiraganaKatakanaToggle() {
-    return html`
-    <toggle-container>
-      <label> hiragana/katakana: </label>
-      <label class="switch">
-        <input @click="${() => alert("not implemented yet")}" type="checkbox">
-        <span class="slider round"></span>
-      </label>
+      <button @click="${this.handleBackToDeckSelection}">back</button>
     </toggle-container>
   `;
   }
@@ -129,8 +108,8 @@ class KanaControls extends LitElement {
   render() {
     return html`
         <controls-container>
-          ${this.renderSingleToggle()}
-          ${this.renderHiraganaKatakanaToggle()}
+          ${this.renderBackToDeckSelection()}
+          <empty-space></empty-space>
           <button @click="${this.resetLocalStorage}"> reset </button>
         </controls-container>
       `;

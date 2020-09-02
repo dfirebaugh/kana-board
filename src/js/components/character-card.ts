@@ -2,6 +2,7 @@ import { LitElement, html, css, property } from "lit-element";
 import theme from "../../themes/main-theme";
 import SRSService from "../services/SRSService";
 import KanaState from "../services/KanaState";
+import { HIRAGANA_SINGLE } from "../types";
 
 class CharacterCard extends LitElement {
     @property({ attribute: "character" })
@@ -127,7 +128,7 @@ class CharacterCard extends LitElement {
     }
 
     renderSRSControls() {
-        if (!KanaState.get().single) return null;
+        if (KanaState.get().appMode != HIRAGANA_SINGLE) return null;
 
 
         return html`

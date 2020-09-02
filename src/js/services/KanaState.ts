@@ -1,12 +1,23 @@
+
+enum AppMode {
+    DECK_SELCTION,
+    HIRAGANA_SINGLE,
+    HIRAGANA_BOARD,
+    KATAKANA_BOARD
+}
+
 interface KanaState {
-    single: Boolean
+    single: Boolean,
+    appMode: AppMode
 };
+
 class StateService {
     state: KanaState = {
-        single: true
+        single: true,
+        appMode: 0
     };
 
-    update(state: KanaState): void {
+    update(state: any): void {
         this.state = Object.assign(this.state, state);
     }
 
