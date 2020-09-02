@@ -5,13 +5,12 @@
 import { LitElement, html } from "lit-element";
 import { DECK_SELCTION, HIRAGANA_SINGLE, HIRAGANA_BOARD } from "./types";
 import KanaState from "./services/KanaState";
-import kanas from "./kanas_with_images";
-import SRSService from "./services/SRSService";
 import "./components/character-card";
 import "./components/romaji-reveal";
 import "./components/kana-controls";
 import "./components/deck-selection";
 import "./components/hiragana-board";
+import SRSService from "./services/SRSService";
 
 const mountPoint = document.getElementById("hiragana")
 class KanaApp extends LitElement {
@@ -28,14 +27,11 @@ class KanaApp extends LitElement {
     }
 
     renderSingleCard() {
-        const nextKey = SRSService.getNext().romaji;
-        console.log(nextKey)
         return html`
         <character-card 
             @card-event="${this.updateFromChild}"
             id="singlCard" 
-            weight=${SRSService.getKanaWeight()} 
-            .character=${kanas[nextKey]} single>
+            .character="${SRSService.getNext()}">
         </character-card>
         `
     }
@@ -82,4 +78,5 @@ customElements.define("kana-app", KanaApp);
 /**
  * Mount the app into the DOM
  */
-mountPoint.appendChild(document.createElement("kana-app"));
+if(mountPoint)
+    mountPoint.appendChild(document.createElement("kana-app"));

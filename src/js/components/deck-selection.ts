@@ -1,8 +1,10 @@
 import { LitElement, html, css } from "lit-element";
 import KanaState from "../services/KanaState";
-import { HIRAGANA_SINGLE, HIRAGANA_BOARD } from "../types";
+import SRSService from "../services/SRSService";
+import { HIRAGANA_SINGLE, HIRAGANA_BOARD, NOT_IMPLEMENTED } from "../types";
 
 class DeckSelection extends LitElement {
+    decks: Array<string> = SRSService.getDecks();
     static get styles() {
         return css`
         group-container {
@@ -55,7 +57,11 @@ class DeckSelection extends LitElement {
     `;
     }
 
-    handleDeckClick(clickEvent, deck) {
+    firstUpdated() {
+        this.decks = SRSService.getDecks()
+    }
+
+    handleDeckClick(clickEvent: Event, deck: number) {
 
         const event = new CustomEvent('deck-select', {
             detail: "Single"
@@ -67,35 +73,35 @@ class DeckSelection extends LitElement {
         this.dispatchEvent(event);
     }
 
+    renderDecks() {
+        return html`
+            ${this.decks.map(x => {
+                return html`
+                <container @click="${(event: Event) => this.handleDeckClick(event, HIRAGANA_SINGLE)}" class="noselect">
+                    <h1>${x}</h1>
+                </container>
+                `;
+            })}
+        `;
+    }
+
     render() {
         return html`
         <deck-container>
-            <group-container>
-                <container @click="${(event) => this.handleDeckClick(event, HIRAGANA_SINGLE)}" class="noselect">
-                    <h1>Hiragana Character</h1>
-                </container>
+            ${this.renderDecks()}
 
-                <container @click="${(event) => this.handleDeckClick(event, HIRAGANA_BOARD)}" class="noselect">
-                    <h1>Hiragana Board</h1>
-                </container>
-            </group-container>
-
-            <group-container>
-                <container @click="${(event) => this.handleDeckClick(event, "HiraganaSingleChar")}" class="noselect">
-                    <h1>Katakana Character</h1>
-                </container>
-
-                <container @click="${(event) => this.handleDeckClick(event, "HiraganaSingleChar")}" class="noselect">
-                    <h1>Katakana Board</h1>
-                </container>
-            </group-container>
-
-            <container @click="${(event) => this.handleDeckClick(event, "HiraganaSingleChar")}" class="noselect">
+            <container @click="${(event: Event) => this.handleDeckClick(event, HIRAGANA_BOARD)}" class="noselect">
+                <h1>Hiragana Board</h1>
+            </container>
+    
+            <container @click="${(event: Event) => this.handleDeckClick(event, NOT_IMPLEMENTED)}" class="noselect">
+                <h1>Katakana Board</h1>
+            </container>
+            <container @click="${(event: Event) => this.handleDeckClick(event, NOT_IMPLEMENTED)}" class="noselect">
                 <h1>Make a custom deck</h1>
             </container>
         </deck-container>
-
-      `;
+        `;
     }
 }
 

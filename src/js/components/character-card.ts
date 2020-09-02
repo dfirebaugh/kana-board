@@ -1,12 +1,13 @@
 import { LitElement, html, css, property } from "lit-element";
 import theme from "../../themes/main-theme";
-import SRSService from "../services/SRSService";
+// import SRSService from "../services/SRSService";
 import KanaState from "../services/KanaState";
 import { HIRAGANA_SINGLE } from "../types";
+import SRSService from "../services/SRSService";
 
 class CharacterCard extends LitElement {
     @property({ attribute: "character" })
-    character;
+    character: any = "";
 
     static get styles() {
         return css`
@@ -87,36 +88,36 @@ class CharacterCard extends LitElement {
     `;
     }
 
+    clickEvent(eventDetail: string) {
+        const event = new CustomEvent('card-event', {
+            detail: eventDetail
+        });
+
+        this.dispatchEvent(event);
+    }
+
     handleCardClick() {
         const romajiReveal = document.createElement("romaji-reveal");
-        romajiReveal.setAttribute("romaji", this.character.romaji);
-        this.shadowRoot.appendChild(romajiReveal);
+        romajiReveal.setAttribute("romaji", this.character.story);
+
+        if(this.shadowRoot)
+            this.shadowRoot.appendChild(romajiReveal);
     }
 
     /**
      * handleSRSGoodClick - this signifies that we know the card well and don't need to see it as often
      */
     handleSRSGoodClick() {
-        SRSService.incrementKanaWeight();
-
-        const event = new CustomEvent('card-event', {
-            detail: "good-click"
-        });
-
-        this.dispatchEvent(event);
+        SRSService.incrementComfortLevel(this.character.story);
+        this.clickEvent("good-click");
     }
 
     /**
      * handleSRSBadClick - this signisfies that we don't know the card well so we need to see it more often
      */
     handleSRSBadClick() {
-        SRSService.decrementKanaWeight();
-
-        const event = new CustomEvent('card-event', {
-            detail: "bad-click"
-        });
-
-        this.dispatchEvent(event);
+        SRSService.decrementComfortLevel(this.character.story);
+        this.clickEvent("bad-click");
     }
 
     handleMnemonicClick() {
@@ -124,7 +125,14 @@ class CharacterCard extends LitElement {
 
         const mnemonicReveal = document.createElement("romaji-reveal");
         mnemonicReveal.setAttribute("img", `${this.character.mnemonic}`);
-        this.shadowRoot.appendChild(mnemonicReveal);
+
+        if(this.shadowRoot)
+                this.shadowRoot.appendChild(mnemonicReveal);
+    }
+
+    handleNewQueueRequest() {
+        SRSService.buildQueue();
+        this.clickEvent("get-new-queue");
     }
 
     renderSRSControls() {
@@ -142,7 +150,7 @@ class CharacterCard extends LitElement {
     renderInputs() {
         return html`
             <controls-container>
-                <reveal @click="${this.handleCardClick}" >romaji</reveal>
+                <reveal @click="${this.handleCardClick}">hint</reveal>
                 ${this.character.mnemonic && html`<reveal-mnemonic @click="${this.handleMnemonicClick}">mnemonic</reveal-mnemonic>`}
                 ${this.renderSRSControls()}
             </controls-container>
@@ -152,9 +160,11 @@ class CharacterCard extends LitElement {
     render() {
         if (!this.character) return null;
 
+        if (SRSService.getQueueLength() == 0 && (KanaState.get().appMode == HIRAGANA_SINGLE)) return html`<h1>great job!</h1> <button @click="${this.handleNewQueueRequest}">try some more</button>`;
+
         return html`
-        <container class="noselect">
-            <h1 lang="ja-jp">${this.character.kana}</h1>
+        <container @keydown="${(e:Event) => { console.log("KEY UP", e)}}" class="noselect">
+            <h1 lang="ja-jp">${this.character.keyword}</h1>
             ${this.renderInputs()}
         </container>
       `;

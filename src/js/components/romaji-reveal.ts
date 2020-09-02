@@ -2,9 +2,9 @@ import { LitElement, html, css, property } from "lit-element";
 
 class RomajiReveal extends LitElement {
     @property({attribute: "romaji"})
-    romaji;
+    romaji: string = "";
     @property({attribute: "img"})
-    img;
+    img: string = "";
     opacity: number;
     randomCardCallback: any;
 
@@ -23,7 +23,7 @@ class RomajiReveal extends LitElement {
         container {
             width: 100%;
             height: 100%;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             background-color: black;

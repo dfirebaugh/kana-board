@@ -1,4 +1,6 @@
-/**
+import { StorageObj_t } from "./types";
+ 
+ /**
  * service that will allow us to store and retrieve from localStorage
  */
 function LocalStorageDriver() {
@@ -11,8 +13,8 @@ function LocalStorageDriver() {
      * setLocalStorage - update our stored kana weights
      * @param {Object} newObj 
      */
-    function updateLocalStorage(newObj) {
-        localStorage.setItem("kanaQueues", JSON.stringify(newObj))
+    function updateLocalStorage(newObj: StorageObj_t) {
+        localStorage.setItem("kanaBoard", JSON.stringify(newObj))
     }
 
     /**
@@ -20,7 +22,7 @@ function LocalStorageDriver() {
      * @returns {Object} - returns 
      */
     function getLocalStorage() {
-        return JSON.parse(localStorage.getItem("kanaQueues"));
+        return JSON.parse(localStorage.getItem("kanaBoard") || "{}");
     }
 }
 
