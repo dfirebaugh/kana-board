@@ -78,5 +78,5 @@ customElements.define("kana-app", KanaApp);
 /**
  * Mount the app into the DOM
  */
-if(mountPoint)
+if (mountPoint)
     mountPoint.appendChild(document.createElement("kana-app"));

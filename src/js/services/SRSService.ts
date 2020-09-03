@@ -3,13 +3,13 @@ import kanas from "../kanas_with_images";
 import {
     Card_t,
     StorageDriver,
-    StorageObj_t, 
-    COMFORT_LEVEL, 
-    QUEUE_SIZE, 
+    StorageObj_t,
+    COMFORT_LEVEL,
+    QUEUE_SIZE,
     HIRAGANA_DECK
- } from "../types";
+} from "../types";
 
- const kanaImport: any = kanas;
+const kanaImport: any = kanas;
 
 /**
  * currentQueue is what the user is currently working through
@@ -64,7 +64,8 @@ function SRSService() {
         buildQueue,
         getDecks,
         getQueueLength,
-        getNext
+        getNext,
+        getCounts
     }
 }
 
@@ -79,21 +80,55 @@ function pullFromCards(howManyLeft: number, listToLookIn: Array<Card_t>): Array<
     return listToLookIn.slice(0, howManyLeft);
 }
 
+interface DeckComfortCounts {
+    total: number,
+    bad: number,
+    medium: number,
+    good: number
+}
+
+function getCounts(): DeckComfortCounts {
+    return {
+        total: Object.keys(storageObj[currentDeck]).length,
+        bad: getLeastFamiliar().length,
+        medium: getMediumFamiliar().length,
+        good: getMostFamiliar().length
+    }
+}
+
+function getLeastFamiliar(): Array<Card_t> {
+    return Object.values(storageObj[currentDeck])
+        .sort((a, b) => a.last_reviewed - b.last_reviewed)
+        .filter(card => card.comfort_level == COMFORT_LEVEL.BAD);
+}
+
+function getMediumFamiliar(): Array<Card_t> {
+    return Object.values(storageObj[currentDeck])
+        .sort((a, b) => a.last_reviewed - b.last_reviewed)
+        .filter(card => card.comfort_level == COMFORT_LEVEL.MEDIUM);
+}
+
+function getMostFamiliar(): Array<Card_t> {
+    return Object.values(storageObj[currentDeck])
+        .sort((a, b) => a.last_reviewed - b.last_reviewed)
+        .filter(card => card.comfort_level == COMFORT_LEVEL.GOOD);
+}
+
 function buildQueue() {
-    if(!currentDeck)
+    if (!currentDeck)
         currentDeck = HIRAGANA_DECK;
 
-    const unfamiliarCards = Object.values(storageObj[currentDeck]).filter(card => card.comfort_level == 0);
-    const mediumCards = Object.values(storageObj[currentDeck]).filter(card => card.comfort_level == 1);
-    const mostFamiliarCards = Object.values(storageObj[currentDeck]).filter(card => card.comfort_level == 2);
+    const unfamiliarCards = getLeastFamiliar();
+    const mediumCards = getMediumFamiliar();
+    const mostFamiliarCards = getMostFamiliar();
 
     currentQueue = pullFromCards(QUEUE_SIZE, unfamiliarCards);
 
-    if (currentQueue.length < QUEUE_SIZE){
+    if (currentQueue.length <= QUEUE_SIZE) {
         currentQueue = currentQueue.concat(pullFromCards(QUEUE_SIZE - currentQueue.length, mediumCards))
     }
 
-    if(currentQueue.length < QUEUE_SIZE) {
+    if (currentQueue.length <= QUEUE_SIZE) {
         currentQueue = currentQueue.concat(pullFromCards(QUEUE_SIZE - currentQueue.length, mostFamiliarCards))
     }
 }
@@ -110,7 +145,7 @@ function initialize() {
         storageObj[HIRAGANA_DECK] = {};
         Object.keys(kanas).forEach(key => {
             storageObj[HIRAGANA_DECK][key] = {
-                keyword:kanaImport[key].kana,
+                keyword: kanaImport[key].kana,
                 story: kanaImport[key].romaji,
                 mnemonic: kanaImport[key].mnemonic,
                 comfort_level: COMFORT_LEVEL.BAD,
@@ -121,10 +156,9 @@ function initialize() {
         buildQueue();
 
         getStorageDriver().updateStorage(storageObj)
-        console.log(getStorageDriver().getStorage())
         return;
     }
-    
+
     storageObj = existingLocalStorage;
     getStorageDriver().updateStorage(storageObj)
     buildQueue();
@@ -135,7 +169,8 @@ function initialize() {
  */
 function incrementComfortLevel(key: string): void {
     const currentCard = storageObj[currentDeck][key];
-    if(currentCard.comfort_level != COMFORT_LEVEL.GOOD) currentCard.comfort_level++;
+    currentCard.last_reviewed = Date.now();
+    if (currentCard.comfort_level != COMFORT_LEVEL.GOOD) currentCard.comfort_level++;
     getStorageDriver().updateStorage(storageObj);
 }
 
@@ -144,7 +179,8 @@ function incrementComfortLevel(key: string): void {
  */
 function decrementComfortLevel(key: string) {
     const currentCard = storageObj[currentDeck][key];
-    if(currentCard.comfort_level == COMFORT_LEVEL.BAD) currentCard.comfort_level--;
+    currentCard.last_reviewed = Date.now();
+    if (currentCard.comfort_level != COMFORT_LEVEL.BAD) currentCard.comfort_level--;
     getStorageDriver().updateStorage(storageObj);
 }
 

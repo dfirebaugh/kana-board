@@ -2,8 +2,9 @@ import { LitElement, html, css, property } from "lit-element";
 import theme from "../../themes/main-theme";
 // import SRSService from "../services/SRSService";
 import KanaState from "../services/KanaState";
-import { HIRAGANA_SINGLE } from "../types";
+import { HIRAGANA_SINGLE, HIRAGANA_BOARD } from "../types";
 import SRSService from "../services/SRSService";
+import "./comfort-counts";
 
 class CharacterCard extends LitElement {
     @property({ attribute: "character" })
@@ -85,6 +86,18 @@ class CharacterCard extends LitElement {
               background-color: ${theme.gray};
           }
 
+          comfort-counts {
+              display: flex;
+              width: 100%;
+              flex-wrap: wrap;
+              justify-content: center;
+          }
+
+          btn-container {
+            width: 100%;
+            display: grid;
+            height: 7vh;
+          }
     `;
     }
 
@@ -100,7 +113,7 @@ class CharacterCard extends LitElement {
         const romajiReveal = document.createElement("romaji-reveal");
         romajiReveal.setAttribute("romaji", this.character.story);
 
-        if(this.shadowRoot)
+        if (this.shadowRoot)
             this.shadowRoot.appendChild(romajiReveal);
     }
 
@@ -126,8 +139,8 @@ class CharacterCard extends LitElement {
         const mnemonicReveal = document.createElement("romaji-reveal");
         mnemonicReveal.setAttribute("img", `${this.character.mnemonic}`);
 
-        if(this.shadowRoot)
-                this.shadowRoot.appendChild(mnemonicReveal);
+        if (this.shadowRoot)
+            this.shadowRoot.appendChild(mnemonicReveal);
     }
 
     handleNewQueueRequest() {
@@ -157,13 +170,21 @@ class CharacterCard extends LitElement {
         `;
     }
 
-    render() {
-        if (!this.character) return null;
+    renderComfortCounts() {
+        return html`
+        <btn-container>
+            <button @click="${this.handleNewQueueRequest}">try some more</button>
+        </btn-container>
+        <comfort-counts></comfort-counts>
+        `;
+    }
 
-        if (SRSService.getQueueLength() == 0 && (KanaState.get().appMode == HIRAGANA_SINGLE)) return html`<h1>great job!</h1> <button @click="${this.handleNewQueueRequest}">try some more</button>`;
+    render() {
+        if (!this.character && KanaState.state.appMode == HIRAGANA_BOARD) return null;
+        if (!this.character) return this.renderComfortCounts();
 
         return html`
-        <container @keydown="${(e:Event) => { console.log("KEY UP", e)}}" class="noselect">
+        <container @keydown="${(e: Event) => { console.log("KEY UP", e) }}" class="noselect">
             <h1 lang="ja-jp">${this.character.keyword}</h1>
             ${this.renderInputs()}
         </container>

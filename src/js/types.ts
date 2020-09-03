@@ -1,3 +1,4 @@
+export const LOCAL_STORAGE_NAME = "kanaBoard";
 export const DECK_SELCTION = 0;
 export const HIRAGANA_SINGLE = 1
 export const HIRAGANA_BOARD = 2;
@@ -39,7 +40,7 @@ export interface Card_t {
  * a bunch of cards to review
  */
 export interface Deck_t {
-    [cardName: string]: Card_t
+    [cardName: string]: Card_t,
 }
 
 /**

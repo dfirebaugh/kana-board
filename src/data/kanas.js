@@ -341,15 +341,15 @@ export default {
         "type": "dakuon",
         "audio": "../audio/da.mp3"
     },
-    "ji1": {
+    "ji(alternate)": {
         "kana": "ぢ",
-        "romaji": "ji",
+        "romaji": "ji(alternate)",
         "type": "dakuon",
         "audio": "../audio/ji.mp3"
     },
-    "zu1": {
+    "zu(alternate)": {
         "kana": "づ",
-        "romaji": "zu",
+        "romaji": "zu(alternate)",
         "type": "dakuon",
         "audio": "../audio/zu.mp3"
     },

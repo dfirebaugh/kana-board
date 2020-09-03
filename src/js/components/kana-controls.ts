@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit-element";
 import KanaState from "../services/KanaState";
-import { DECK_SELCTION } from "../types";
+import { DECK_SELCTION, LOCAL_STORAGE_NAME } from "../types";
 
 class KanaControls extends LitElement {
   static get styles() {
@@ -92,7 +92,7 @@ class KanaControls extends LitElement {
   }
 
   resetLocalStorage() {
-    localStorage.removeItem("kanaQueues");
+    localStorage.removeItem(LOCAL_STORAGE_NAME);
     alert(`local storage reset`);
     location.reload();
   }
