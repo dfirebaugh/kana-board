@@ -1,40 +1,33 @@
 import { LitElement, html, css, property } from "lit-element";
+import { noSelect } from "../../themes/no-select"
 
 class RomajiReveal extends LitElement {
-    @property({attribute: "romaji"})
+    @property({ attribute: "romaji" })
     romaji: string = "";
-    @property({attribute: "img"})
+    @property({ attribute: "img" })
     img: string = "";
     opacity: number;
     randomCardCallback: any;
 
     static get styles() {
-        return css`
-        .noselect {
-            -webkit-touch-callout: none; /* iOS Safari */
-              -webkit-user-select: none; /* Safari */
-               -khtml-user-select: none; /* Konqueror HTML */
-                 -moz-user-select: none; /* Old versions of Firefox */
-                  -ms-user-select: none; /* Internet Explorer/Edge */
-                      user-select: none; /* Non-prefixed version, currently
-                                            supported by Chrome, Edge, Opera and Firefox */
-          }
-
-        container {
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: black;
-            color: white;
-            text-align: center;
-            font-size: 7rem;
-            display: grid;
-            align-content: center;
-            justify-content: center;
-        }
-    `;
+        return [
+            noSelect,
+            css`
+                container {
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    background-color: black;
+                    color: white;
+                    text-align: center;
+                    font-size: 7rem;
+                    display: grid;
+                    align-content: center;
+                    justify-content: center;
+                }
+            `];
     }
 
     constructor() {
@@ -59,7 +52,7 @@ class RomajiReveal extends LitElement {
     }
 
     renderRomaji() {
-        if(!this.romaji) return null;
+        if (!this.romaji) return null;
 
         return html`
             <h1>${this.romaji}</h1>

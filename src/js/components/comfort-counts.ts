@@ -12,7 +12,7 @@ class ComfortCounts extends LitElement {
             container {
                 display: grid;
                 grid-template-columns: auto auto auto;
-                grid-gap: 4rem;
+                grid-gap: 2rem;
             }
             h1 {
                 text-align: center;

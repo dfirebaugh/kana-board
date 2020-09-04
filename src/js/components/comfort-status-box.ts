@@ -16,7 +16,7 @@ class ComfortStatusBox extends LitElement {
                 display: grid;
                 border: solid black 8px;
                 height: 40vh;
-                width: 30vw;
+                width: 18vw;
             }
 
             progress-bar {

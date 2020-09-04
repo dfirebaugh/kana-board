@@ -1,20 +1,17 @@
 
-enum AppMode {
-    DECK_SELCTION,
-    HIRAGANA_SINGLE,
-    HIRAGANA_BOARD,
-    KATAKANA_BOARD
-}
+import { APP_MODES } from "../types";
 
 interface KanaState {
     single: Boolean,
-    appMode: AppMode
+    appMode: APP_MODES,
+    currentDeck: string
 };
 
 class StateService {
     state: KanaState = {
         single: true,
-        appMode: 0
+        appMode: 0,
+        currentDeck: ""
     };
 
     update(state: any): void {

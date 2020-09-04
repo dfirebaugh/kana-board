@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit-element";
 import KanaState from "../services/KanaState";
-import { DECK_SELCTION, LOCAL_STORAGE_NAME } from "../types";
+import { APP_MODES, LOCAL_STORAGE_NAME } from "../types";
+import mainTheme from "../../themes/main-theme"
 
 class KanaControls extends LitElement {
   static get styles() {
@@ -75,13 +76,18 @@ class KanaControls extends LitElement {
           .slider.round:before {
             border-radius: 50%;
           }
+
+          .reset-storage-button {
+            background-color: ${mainTheme.red};
+            color: white;
+          }
     `;
   }
 
   handleBackToDeckSelection() {
-    if (KanaState.get().appMode != DECK_SELCTION) {
+    if (KanaState.get().appMode != APP_MODES.DECK_SELCTION) {
       KanaState.update({
-        appMode: DECK_SELCTION
+        appMode: APP_MODES.DECK_SELCTION
       });
     }
 
@@ -110,7 +116,7 @@ class KanaControls extends LitElement {
         <controls-container>
           ${this.renderBackToDeckSelection()}
           <empty-space></empty-space>
-          <button @click="${this.resetLocalStorage}"> reset </button>
+          <button class="reset-storage-button" @click="${this.resetLocalStorage}"> reset local storage </button>
         </controls-container>
       `;
   }

@@ -1,12 +1,12 @@
-import localStorageDriver from "../localStorageDriver";
 import kanas from "../kanas_with_images";
+import Card from "../Card";
+import { getStorageDriver } from "./StorageService";
 import {
     Card_t,
-    StorageDriver,
     StorageObj_t,
     COMFORT_LEVEL,
     QUEUE_SIZE,
-    HIRAGANA_DECK
+    HIRAGANA_DECK_NAME
 } from "../types";
 
 const kanaImport: any = kanas;
@@ -22,30 +22,10 @@ var currentQueue: Array<Card_t> = [];
 var storageObj: StorageObj_t = {};
 
 /**
- * initialize the localStorageDriver so that we can use it across multiple modules
- */
-var storageDriver: StorageDriver = localStorageDriver();
-
-/**
  * currentDeck which deck are we currently working with?
  */
 var currentDeck: string;
 
-/**
- * setStorageDriver
- * @param storageDriver 
- */
-export function setStorageDriver(newStorageDriver: StorageDriver) {
-    storageDriver = newStorageDriver;
-}
-
-/**
- * getStorageDriver
- * conditionally returns a storageDriver so that we can test without using local storage
- */
-function getStorageDriver(): StorageDriver {
-    return storageDriver;
-}
 
 /**
  * SRSService
@@ -65,8 +45,14 @@ function SRSService() {
         getDecks,
         getQueueLength,
         getNext,
-        getCounts
+        getCounts,
+        setCurrentDeck
     }
+}
+
+function setCurrentDeck(deckName: string): string {
+    currentDeck = deckName;
+    return currentDeck;
 }
 
 function getQueueLength(): number {
@@ -116,7 +102,7 @@ function getMostFamiliar(): Array<Card_t> {
 
 function buildQueue() {
     if (!currentDeck)
-        currentDeck = HIRAGANA_DECK;
+        currentDeck = HIRAGANA_DECK_NAME;
 
     const unfamiliarCards = getLeastFamiliar();
     const mediumCards = getMediumFamiliar();
@@ -140,19 +126,17 @@ function buildQueue() {
 function initialize() {
     const existingLocalStorage = getStorageDriver().getStorage();
     if (!existingLocalStorage.hiragana) {
-        console.log("init hira:")
         /* initialize the hiragana deck*/
-        storageObj[HIRAGANA_DECK] = {};
+        storageObj[HIRAGANA_DECK_NAME] = {};
         Object.keys(kanas).forEach(key => {
-            storageObj[HIRAGANA_DECK][key] = {
-                keyword: kanaImport[key].kana,
-                story: kanaImport[key].romaji,
-                mnemonic: kanaImport[key].mnemonic,
-                comfort_level: COMFORT_LEVEL.BAD,
-                last_reviewed: Date.now()
-            };
+            const newCard = new Card({
+                keyword: kanaImport[key].romaji,
+                story: kanaImport[key].kana,
+                mnemonic: kanaImport[key].mnemonic
+            });
+            storageObj[HIRAGANA_DECK_NAME][newCard.hash] = newCard;
         })
-        currentDeck = HIRAGANA_DECK;
+        currentDeck = HIRAGANA_DECK_NAME;
         buildQueue();
 
         getStorageDriver().updateStorage(storageObj)
@@ -167,8 +151,8 @@ function initialize() {
 /**
  * incrementComfortLevel - increment the weight of a kana in localStorage
  */
-function incrementComfortLevel(key: string): void {
-    const currentCard = storageObj[currentDeck][key];
+function incrementComfortLevel(hash: string): void {
+    const currentCard = storageObj[currentDeck][hash];
     currentCard.last_reviewed = Date.now();
     if (currentCard.comfort_level != COMFORT_LEVEL.GOOD) currentCard.comfort_level++;
     getStorageDriver().updateStorage(storageObj);
@@ -177,8 +161,8 @@ function incrementComfortLevel(key: string): void {
 /**
  * decrementComfortLevel - decrement weight of a kana in localStorage
  */
-function decrementComfortLevel(key: string) {
-    const currentCard = storageObj[currentDeck][key];
+function decrementComfortLevel(hash: string) {
+    const currentCard = storageObj[currentDeck][hash];
     currentCard.last_reviewed = Date.now();
     if (currentCard.comfort_level != COMFORT_LEVEL.BAD) currentCard.comfort_level--;
     getStorageDriver().updateStorage(storageObj);

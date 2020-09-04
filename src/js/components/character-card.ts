@@ -2,53 +2,45 @@ import { LitElement, html, css, property } from "lit-element";
 import theme from "../../themes/main-theme";
 // import SRSService from "../services/SRSService";
 import KanaState from "../services/KanaState";
-import { HIRAGANA_SINGLE, HIRAGANA_BOARD } from "../types";
+import { APP_MODES } from "../types";
 import SRSService from "../services/SRSService";
 import "./comfort-counts";
+import { noSelect } from "../../themes/no-select"
 
 class CharacterCard extends LitElement {
     @property({ attribute: "character" })
     character: any = "";
 
     static get styles() {
-        return css`
-        :lang(ja-jp) {
-            font-family: Arial, sans-serif;
-            line-height: 1.5rem;
-        }
+        return [
+            noSelect,
+            css`
+            :lang(ja-jp) {
+                font-family: Arial, sans-serif;
+                line-height: 1.5rem;
+            }
 
-        character-card {
-            width: 100%;
-        }
+            character-card {
+                width: 100%;
+            }
 
-        container {
-            width: 100%;
-            box-shadow: 2px 2px 39px -23px;
-            background-color: aliceblue;
-            display: inline-block;
-            align-content: end;
-        }
+            container {
+                width: 100%;
+                box-shadow: 2px 2px 39px -23px;
+                background-color: aliceblue;
+                display: inline-block;
+                align-content: end;
+            }
 
-        h1 {
-            text-align: center;
-            font-size: 6rem;
-        }
-
-        .noselect {
-            -webkit-touch-callout: none; /* iOS Safari */
-              -webkit-user-select: none; /* Safari */
-               -khtml-user-select: none; /* Konqueror HTML */
-                 -moz-user-select: none; /* Old versions of Firefox */
-                  -ms-user-select: none; /* Internet Explorer/Edge */
-                      user-select: none; /* Non-prefixed version, currently
-                                            supported by Chrome, Edge, Opera and Firefox */
-          }
-
-          controls-container * {
-              display: grid;
-              line-height: 3rem;
-              text-align: center;
-          }
+            h1 {
+                text-align: center;
+                font-size: 6rem;
+            }
+            controls-container * {
+                display: grid;
+                line-height: 3rem;
+                text-align: center;
+            }
 
           controls-container *:hover {
                 cursor: pointer;
@@ -98,9 +90,15 @@ class CharacterCard extends LitElement {
             display: grid;
             height: 7vh;
           }
-    `;
+    `];
     }
 
+    firstUpdated() {
+        if (KanaState.get().appMode == APP_MODES.DECK_REVIEW) {
+            SRSService.buildQueue();
+            this.character = SRSService.getNext()
+        }
+    }
     clickEvent(eventDetail: string) {
         const event = new CustomEvent('card-event', {
             detail: eventDetail
@@ -111,7 +109,7 @@ class CharacterCard extends LitElement {
 
     handleCardClick() {
         const romajiReveal = document.createElement("romaji-reveal");
-        romajiReveal.setAttribute("romaji", this.character.story);
+        romajiReveal.setAttribute("romaji", this.character.keyword);
 
         if (this.shadowRoot)
             this.shadowRoot.appendChild(romajiReveal);
@@ -121,7 +119,8 @@ class CharacterCard extends LitElement {
      * handleSRSGoodClick - this signifies that we know the card well and don't need to see it as often
      */
     handleSRSGoodClick() {
-        SRSService.incrementComfortLevel(this.character.story);
+        SRSService.incrementComfortLevel(this.character.hash);
+        this.character = SRSService.getNext()
         this.clickEvent("good-click");
     }
 
@@ -129,7 +128,8 @@ class CharacterCard extends LitElement {
      * handleSRSBadClick - this signisfies that we don't know the card well so we need to see it more often
      */
     handleSRSBadClick() {
-        SRSService.decrementComfortLevel(this.character.story);
+        SRSService.decrementComfortLevel(this.character.hash);
+        this.character = SRSService.getNext()
         this.clickEvent("bad-click");
     }
 
@@ -145,11 +145,12 @@ class CharacterCard extends LitElement {
 
     handleNewQueueRequest() {
         SRSService.buildQueue();
+        this.character = SRSService.getNext()
         this.clickEvent("get-new-queue");
     }
 
     renderSRSControls() {
-        if (KanaState.get().appMode != HIRAGANA_SINGLE) return null;
+        if (KanaState.get().appMode != APP_MODES.DECK_REVIEW) return null;
 
 
         return html`
@@ -180,12 +181,12 @@ class CharacterCard extends LitElement {
     }
 
     render() {
-        if (!this.character && KanaState.state.appMode == HIRAGANA_BOARD) return null;
+        if (!this.character && KanaState.state.appMode == APP_MODES.HIRAGANA_BOARD) return null;
         if (!this.character) return this.renderComfortCounts();
 
         return html`
-        <container @keydown="${(e: Event) => { console.log("KEY UP", e) }}" class="noselect">
-            <h1 lang="ja-jp">${this.character.keyword}</h1>
+        <container class="noselect">
+            <h1 lang="ja-jp">${this.character.story}</h1>
             ${this.renderInputs()}
         </container>
       `;

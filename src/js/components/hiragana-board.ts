@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit-element";
 import kanas from "../kanas_with_images";
-import {Card_t} from "../types";
+import { Card_t } from "../types";
+import Card from "../Card"
 
 class HiraganaBoard extends LitElement {
     static get styles() {
@@ -37,13 +38,11 @@ class HiraganaBoard extends LitElement {
     }
 
     kanaToDeckElement(kana: any): Card_t {
-        const newCard: Card_t = {
-            keyword: kana.kana,
-            story: kana.romaji,
-            mnemonic: kana.mnemonic,
-            comfort_level: 0,
-            last_reviewed: Date.now()
-        }
+        const newCard = new Card({
+            keyword: kana.romaji,
+            story: kana.kana,
+            mnemonic: kana.mnemonic
+        })
         return newCard;
     }
 

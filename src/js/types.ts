@@ -1,10 +1,16 @@
 export const LOCAL_STORAGE_NAME = "kanaBoard";
-export const DECK_SELCTION = 0;
-export const HIRAGANA_SINGLE = 1
-export const HIRAGANA_BOARD = 2;
-export const KATAKANA_BOARD = 3;
 export const QUEUE_SIZE = 20;
-export const NOT_IMPLEMENTED = -1;
+export const DELETE = "DELETE";
+
+export enum APP_MODES {
+    NOT_IMPLEMENTED = -1,
+    DECK_SELCTION,
+    DECK_REVIEW,
+    HIRAGANA_BOARD,
+    KATAKANA_BOARD,
+    CREATE_DECK,
+    EDIT_DECK
+}
 
 export enum COMFORT_LEVEL {
     BAD,
@@ -12,8 +18,8 @@ export enum COMFORT_LEVEL {
     GOOD
 }
 
-export const HIRAGANA_DECK = "hiragana";
-export const KATAKANA_DECK = "katakana";
+export const HIRAGANA_DECK_NAME = "hiragana";
+export const KATAKANA_DECK_NAME = "katakana";
 
 
 export interface StorageDriver {
@@ -22,6 +28,7 @@ export interface StorageDriver {
 }
 
 export interface Card_t {
+    hash: string,
     keyword: string,
     story: string,
     mnemonic: string,
