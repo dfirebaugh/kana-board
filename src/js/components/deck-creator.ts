@@ -1,8 +1,8 @@
-import { LitElement, html, css, property } from "lit-element";
+import { LitElement, html, css, property, CSSResult, TemplateResult } from "lit-element";
 import { Deck_t, Card_t, DELETE } from "../types";
-import DeckService from "../services/DeckService";
+import { DeckService } from "../services/DeckService";
 import "./json-viewer";
-import Card from "../Card";
+import { Card } from "../Card";
 
 class DeckCreator extends LitElement {
     @property({ attribute: "deck-name" })
@@ -17,7 +17,7 @@ class DeckCreator extends LitElement {
     @property({ attribute: "deck" })
     deck: Deck_t = {}
 
-    static get styles() {
+    static get styles(): CSSResult {
         return css`
         deck-name-container {
             display: grid;
@@ -28,34 +28,34 @@ class DeckCreator extends LitElement {
         `;
     }
 
-    firstUpdated() {
+    firstUpdated(): void {
         if (this.deckName)
-            this.deck = DeckService.getDeck(this.deckName)
+            this.deck = DeckService.get(this.deckName)
     }
     /**
      * TODO: update storage to remove the old deck
      */
-    handleDeckNameChange(event: { target: HTMLInputElement }) {
+    handleDeckNameChange(event: { target: HTMLInputElement }): void {
         this.deckName = "";
 
         this.deckName = event.target.value;
-        this.deck = DeckService.getDeck(this.deckName);
+        this.deck = DeckService.get(this.deckName);
     }
 
-    handleKeywordChange(event: { target: HTMLInputElement }) {
+    handleKeywordChange(event: { target: HTMLInputElement }): void {
         this.keyword = event.target.value;
     }
 
-    handleStoryChange(event: { target: HTMLInputElement }) {
+    handleStoryChange(event: { target: HTMLInputElement }): void {
         this.story = event.target.value;
     }
 
-    handleMnemonicChange(event: { target: HTMLInputElement }) {
+    handleMnemonicChange(event: { target: HTMLInputElement }): void {
         this.mnemonic = event.target.value;
     }
 
-    handleSubmit(event: { target: HTMLInputElement }) {
-        this.deck = DeckService.updateDeck(this.deckName, [
+    handleSubmit(event: { target: HTMLInputElement }): void {
+        this.deck = DeckService.update(this.deckName, [
             new Card({
                 keyword: this.keyword,
                 story: this.story,
@@ -64,13 +64,12 @@ class DeckCreator extends LitElement {
         this.requestUpdate();
     }
 
-    deleteCard(card: Card_t) {
+    deleteCard(card: Card_t): void {
         delete this.deck[card.keyword];
-        this.deck = DeckService.updateDeck(this.deckName, [card], DELETE);
-
+        this.deck = DeckService.update(this.deckName, [card], DELETE);
     }
 
-    renderCards() {
+    renderCards(): Array<TemplateResult> {
         return Object.keys(this.deck).map(card => {
             return html`
                 <tr>
@@ -84,7 +83,7 @@ class DeckCreator extends LitElement {
         })
     }
 
-    renderDeck() {
+    renderDeck(): TemplateResult {
         if (this.deck) {
             return html`
             <table>
@@ -102,7 +101,7 @@ class DeckCreator extends LitElement {
         }
     }
 
-    renderDeckName() {
+    renderDeckName(): TemplateResult {
         if (this.deckName) return html`
         <deck-name-container>
             <h2> ${this.deckName} </h2>
@@ -115,7 +114,7 @@ class DeckCreator extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult {
         if (!this.deckName) {
             return html`
                 name the deck

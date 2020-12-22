@@ -1,10 +1,10 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit-element";
 import KanaState from "../services/KanaState";
 import { APP_MODES, LOCAL_STORAGE_NAME } from "../types";
 import mainTheme from "../../themes/main-theme"
 
 class KanaControls extends LitElement {
-  static get styles() {
+  static get styles(): CSSResult {
     return css`
         controls-container {
           display: grid;
@@ -84,7 +84,7 @@ class KanaControls extends LitElement {
     `;
   }
 
-  handleBackToDeckSelection() {
+  handleBackToDeckSelection(): void {
     if (KanaState.get().appMode != APP_MODES.DECK_SELCTION) {
       KanaState.update({
         appMode: APP_MODES.DECK_SELCTION
@@ -97,13 +97,13 @@ class KanaControls extends LitElement {
     this.dispatchEvent(event);
   }
 
-  resetLocalStorage() {
+  resetLocalStorage(): void {
     localStorage.removeItem(LOCAL_STORAGE_NAME);
     alert(`local storage reset`);
     location.reload();
   }
 
-  renderBackToDeckSelection() {
+  renderBackToDeckSelection(): TemplateResult {
     return html`
     <toggle-container>
       <button @click="${this.handleBackToDeckSelection}">back</button>
@@ -111,7 +111,7 @@ class KanaControls extends LitElement {
   `;
   }
 
-  render() {
+  render(): TemplateResult {
     return html`
         <controls-container>
           ${this.renderBackToDeckSelection()}

@@ -2,7 +2,7 @@
  * Load our lit elements and other ESmodules
  * 
  */
-import { LitElement, html } from "lit-element";
+import { LitElement, html, TemplateResult } from "lit-element";
 import { APP_MODES } from "./types";
 import KanaState from "./services/KanaState";
 import "./components/character-card";
@@ -12,13 +12,13 @@ import "./components/deck-selection";
 import "./components/hiragana-board";
 import "./components/deck-creator";
 
-const mountPoint = document.getElementById("hiragana")
+const mountPoint: HTMLElement | null = document.getElementById("hiragana")
 class KanaApp extends LitElement {
-    updateFromChild() {
+    updateFromChild(): void {
         this.requestUpdate()
     }
 
-    renderInputs() {
+    renderInputs(): TemplateResult {
         return html`
         <kana-controls 
             @control-changed="${this.updateFromChild}" >
@@ -26,7 +26,7 @@ class KanaApp extends LitElement {
         `
     }
 
-    renderSingleCard() {
+    renderSingleCard(): TemplateResult {
         return html`
         <character-card 
             @card-event="${this.updateFromChild}"
@@ -35,8 +35,7 @@ class KanaApp extends LitElement {
             `
     }
 
-    // .character="${}">
-    renderDeckSelection() {
+    renderDeckSelection(): TemplateResult {
         return html`
         <deck-selection
             @deck-select="${this.updateFromChild}"
@@ -45,8 +44,8 @@ class KanaApp extends LitElement {
         `
     }
 
-    render() {
-        var output = this.renderInputs();
+    render(): TemplateResult {
+        let output: TemplateResult = this.renderInputs();
 
         switch (KanaState.get().appMode) {
             case APP_MODES.DECK_SELCTION:

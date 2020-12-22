@@ -1,11 +1,11 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, TemplateResult, CSSResult } from 'lit-element';
 import "@advanced-rest-client/prism-highlight";
 
 class CodeViewer extends LitElement {
     @property({ attribute: "code" })
     code: string = "";
 
-    static get style() {
+    static get style(): CSSResult {
         return css`
         container {
             background-color: aliceblue;
@@ -17,7 +17,7 @@ class CodeViewer extends LitElement {
     }
     lang: string = "json"
 
-    render() {
+    render(): TemplateResult {
         return html`
             <link rel="import" href="../node_modules/juicy-ace-editor/juicy-ace-editor.html"> 
             <container>

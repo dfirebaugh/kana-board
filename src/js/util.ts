@@ -1,5 +1,5 @@
 
-export function hash(str: string) {
+export function hash(str: string): number {
     var hash = 0, i, chr;
     for (i = 0; i < str.length; i++) {
         chr = str.charCodeAt(i);

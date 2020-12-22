@@ -21,10 +21,12 @@ export enum COMFORT_LEVEL {
 export const HIRAGANA_DECK_NAME = "hiragana";
 export const KATAKANA_DECK_NAME = "katakana";
 
-
+/**
+ * StorageDriver contains operations to interact with storage
+ */
 export interface StorageDriver {
-    updateStorage: Function,
-    getStorage: Function
+    update: Function,
+    get: Function
 }
 
 export interface Card_t {

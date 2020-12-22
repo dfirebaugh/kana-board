@@ -1,17 +1,16 @@
-import { LitElement, html, css, property } from "lit-element";
+import { LitElement, html, css, property, CSSResult, TemplateResult } from "lit-element";
 import theme from "../../themes/main-theme";
-// import SRSService from "../services/SRSService";
 import KanaState from "../services/KanaState";
-import { APP_MODES } from "../types";
+import { APP_MODES, Card_t } from "../types";
 import SRSService from "../services/SRSService";
 import "./comfort-counts";
 import { noSelect } from "../../themes/no-select"
 
 class CharacterCard extends LitElement {
     @property({ attribute: "character" })
-    character: any = "";
+    character: Card_t | null = null;
 
-    static get styles() {
+    static get styles(): Array<CSSResult> {
         return [
             noSelect,
             css`
@@ -93,22 +92,25 @@ class CharacterCard extends LitElement {
     `];
     }
 
-    firstUpdated() {
-        if (KanaState.get().appMode == APP_MODES.DECK_REVIEW) {
+    firstUpdated(): void {
+        if (KanaState.get().appMode === APP_MODES.DECK_REVIEW) {
             SRSService.buildQueue();
             this.character = SRSService.getNext()
         }
     }
-    clickEvent(eventDetail: string) {
-        const event = new CustomEvent('card-event', {
+    clickEvent(eventDetail: string): void {
+        const event: CustomEvent = new CustomEvent('card-event', {
             detail: eventDetail
         });
 
         this.dispatchEvent(event);
     }
 
-    handleCardClick() {
-        const romajiReveal = document.createElement("romaji-reveal");
+    handleCardClick(): void {
+        const romajiReveal: HTMLElement = document.createElement("romaji-reveal");
+
+        if (!this.character) return alert("you clicked the card, but there was no card.  So, character is null");
+
         romajiReveal.setAttribute("romaji", this.character.keyword);
 
         if (this.shadowRoot)
@@ -118,7 +120,9 @@ class CharacterCard extends LitElement {
     /**
      * handleSRSGoodClick - this signifies that we know the card well and don't need to see it as often
      */
-    handleSRSGoodClick() {
+    handleSRSGoodClick(): void {
+        if (!this.character) return alert("you clicked the card, but there was no card.  So, character is null");
+
         SRSService.incrementComfortLevel(this.character.hash);
         this.character = SRSService.getNext()
         this.clickEvent("good-click");
@@ -127,13 +131,16 @@ class CharacterCard extends LitElement {
     /**
      * handleSRSBadClick - this signisfies that we don't know the card well so we need to see it more often
      */
-    handleSRSBadClick() {
-        SRSService.decrementComfortLevel(this.character.hash);
+    handleSRSBadClick(): void {
+        if (!this.character) return alert("you clicked the card, but there was no card.  So, character is null");
+        SRSService.decrementComfortLevel(this.character?.hash);
         this.character = SRSService.getNext()
         this.clickEvent("bad-click");
     }
 
-    handleMnemonicClick() {
+    handleMnemonicClick(): void {
+        if (!this.character) return alert("you clicked the card, but there was no card.  So, character is null");
+
         if (!this.character.mnemonic) return;
 
         const mnemonicReveal = document.createElement("romaji-reveal");
@@ -143,15 +150,16 @@ class CharacterCard extends LitElement {
             this.shadowRoot.appendChild(mnemonicReveal);
     }
 
-    handleNewQueueRequest() {
+    handleNewQueueRequest(): void {
         SRSService.buildQueue();
         this.character = SRSService.getNext()
         this.clickEvent("get-new-queue");
     }
 
-    renderSRSControls() {
+    renderSRSControls(): TemplateResult | void | null {
         if (KanaState.get().appMode != APP_MODES.DECK_REVIEW) return null;
 
+        if (!this.character) return alert("you clicked the card, but there was no card.  So, character is null");
 
         return html`
             <SRS-btn-container>
@@ -161,7 +169,9 @@ class CharacterCard extends LitElement {
         `
     }
 
-    renderInputs() {
+    renderInputs(): TemplateResult | void {
+        if (!this.character) return alert("you clicked the card, but there was no card.  So, character is null");
+
         return html`
             <controls-container>
                 <reveal @click="${this.handleCardClick}">hint</reveal>
@@ -171,7 +181,7 @@ class CharacterCard extends LitElement {
         `;
     }
 
-    renderComfortCounts() {
+    renderComfortCounts(): TemplateResult {
         return html`
         <btn-container>
             <button @click="${this.handleNewQueueRequest}">try some more</button>
@@ -180,7 +190,7 @@ class CharacterCard extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult | null {
         if (!this.character && KanaState.state.appMode == APP_MODES.HIRAGANA_BOARD) return null;
         if (!this.character) return this.renderComfortCounts();
 

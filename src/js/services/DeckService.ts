@@ -1,32 +1,34 @@
 import { getStorageDriver } from "./StorageService";
-import Card from "../Card";
+import { Card } from "../Card";
 import {
     StorageObj_t,
     Deck_t,
-    DELETE
+    DELETE,
+    Card_t,
+    StorageDriver
 } from "../types";
 
-function deckService() {
+export const DeckService = (function deckService(): StorageDriver {
     return {
-        updateDeck,
-        getDeck
+        update: updateDeck,
+        get: getDeck
     }
-}
+})()
 
 function getDeck(deckName: string): Deck_t {
-    return getStorageDriver().getStorage()[deckName]
+    return getStorageDriver().get()[deckName]
 }
 
-function updateDeck(deckName: string, cards: Array<any>, operation?: string | null): Deck_t {
+function updateDeck(deckName: string, cards: Array<Card_t>, operation?: string | null): Deck_t {
     const newDeck: Deck_t = {};
-    cards.forEach(card => {
+    cards.forEach((card: Card_t) => {
         if (operation == DELETE) {
-            console.log("DELTE: ", card)
-            const tmpStorageObj = getStorageDriver().getStorage()
+            console.log("DELETE: ", card)
+            const tmpStorageObj = getStorageDriver().get()
             delete tmpStorageObj[deckName][card.hash];
 
-            getStorageDriver().updateStorage(tmpStorageObj);
-            return getStorageDriver().getStorage();
+            getStorageDriver().update(tmpStorageObj);
+            return getStorageDriver().get();
         }
 
         const newCard = new Card({
@@ -40,12 +42,11 @@ function updateDeck(deckName: string, cards: Array<any>, operation?: string | nu
 
     const storageObj: StorageObj_t = Object.assign(
         {},
-        getStorageDriver().getStorage(),
-        { [deckName]: Object.assign({}, getStorageDriver().getStorage()[deckName], newDeck) }
+        getStorageDriver().get(),
+        { [deckName]: Object.assign({}, getStorageDriver().get()[deckName], newDeck) }
     )
 
-    getStorageDriver().updateStorage(storageObj);
+    getStorageDriver().update(storageObj);
     return storageObj[deckName];
 }
 
-export default deckService();

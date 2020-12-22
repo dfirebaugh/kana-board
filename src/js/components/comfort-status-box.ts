@@ -1,6 +1,15 @@
-import { LitElement, html, css, property } from "lit-element";
+import { LitElement, html, css, property, CSSResult, TemplateResult } from "lit-element";
 import theme from "../../themes/main-theme";
 
+/**
+ * COMFORT_LEVEL
+ * the style/label for what comfort a card falls under
+ */
+enum COMFORT_LEVEL {
+    WEAK = "weak",
+    MEDIUM = "medium",
+    STRONG = "strong"
+}
 
 class ComfortStatusBox extends LitElement {
     @property({ attribute: "count" })
@@ -10,7 +19,7 @@ class ComfortStatusBox extends LitElement {
     @property({ attribute: "label" })
     label: string = "";
 
-    static get styles() {
+    static get styles(): CSSResult {
         return css`
             progress-container {
                 display: grid;
@@ -25,20 +34,21 @@ class ComfortStatusBox extends LitElement {
         `;
     }
 
-    determineColor() {
-        if (this.label == "weak") {
-            return css`${theme.red}`;
-        } else if (this.label == "medium") {
-            return css`${theme.blue}`;
-        } else if (this.label == "strong") {
-            return css`${theme.green}`;
-        } else {
-            console.error("expected a proper label")
-            return null;
+    determineColor(): CSSResult | null {
+        switch(this.label) {
+            case COMFORT_LEVEL.WEAK:
+                return css`${theme.red}`;
+            case COMFORT_LEVEL.MEDIUM:
+                return css`${theme.blue}`;
+            case COMFORT_LEVEL.STRONG:
+                return css`${theme.green}`;
+            default:
+                console.error("expected a proper label")
+                return null;
         }
     }
 
-    render() {
+    render(): TemplateResult {
         return html`
             ${this.label}
             <progress-container style="background-color: ${this.determineColor()};">

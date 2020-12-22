@@ -1,10 +1,10 @@
-import { LitElement, html, css } from "lit-element";
-import SRSService from "../services/SRSService";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit-element";
+import SRSService, { DeckComfortCounts } from "../services/SRSService";
 import "./comfort-status-box";
 
 class ComfortCounts extends LitElement {
-    counts = SRSService.getCounts();
-    static get styles() {
+    counts: DeckComfortCounts = SRSService.getCounts();
+    static get styles(): CSSResult {
         return css`
             status-header {
                 width: 100%
@@ -19,7 +19,7 @@ class ComfortCounts extends LitElement {
             }
         `;
     }
-    render() {
+    render(): TemplateResult {
         return html`
 
         total cards in deck: ${this.counts.total}

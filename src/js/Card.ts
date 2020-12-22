@@ -1,7 +1,7 @@
 import { COMFORT_LEVEL } from "./types";
 import { hash } from "./util";
 
-class Card {
+export class Card {
     hash: string = "";
     keyword: string = "";
     story: string = "";
@@ -21,5 +21,3 @@ class Card {
         this.mnemonic = cardProps.mnemonic
     }
 }
-
-export default Card;

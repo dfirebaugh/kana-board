@@ -1,10 +1,10 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit-element";
 import kanas from "../kanas_with_images";
 import { Card_t } from "../types";
-import Card from "../Card"
+import { Card } from "../Card"
 
 class HiraganaBoard extends LitElement {
-    static get styles() {
+    static get styles(): CSSResult {
         return css`
         cards-grid-container {
             display: grid;
@@ -38,7 +38,7 @@ class HiraganaBoard extends LitElement {
     }
 
     kanaToDeckElement(kana: any): Card_t {
-        const newCard = new Card({
+        const newCard: Card_t = new Card({
             keyword: kana.romaji,
             story: kana.kana,
             mnemonic: kana.mnemonic
@@ -46,7 +46,7 @@ class HiraganaBoard extends LitElement {
         return newCard;
     }
 
-    render() {
+    render(): TemplateResult {
         return html`
         <style>
         character-card {border: solid 2px;}

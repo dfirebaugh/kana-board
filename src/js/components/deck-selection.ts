@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit-element";
 import KanaState from "../services/KanaState";
 import SRSService from "../services/SRSService";
 import { APP_MODES } from "../types";
@@ -6,7 +6,7 @@ import { noSelect } from "../../themes/no-select";
 
 class DeckSelection extends LitElement {
     decks: Array<string> = SRSService.getDecks();
-    static get styles() {
+    static get styles(): Array<CSSResult> {
         return [
             noSelect,
             css`
@@ -61,13 +61,13 @@ class DeckSelection extends LitElement {
         `];
     }
 
-    firstUpdated() {
+    firstUpdated(): void {
         this.decks = SRSService.getDecks()
     }
 
-    handleDeckClick(clickEvent: Event, deckName: string | null, appMode?: APP_MODES | null) {
+    handleDeckClick(clickEvent: Event, deckName: string | null, appMode?: APP_MODES | null): void {
 
-        const event = new CustomEvent('deck-select', {
+        const event: CustomEvent = new CustomEvent('deck-select', {
             detail: "Single"
         });
 
@@ -95,22 +95,22 @@ class DeckSelection extends LitElement {
         this.dispatchEvent(event);
     }
 
-    renderDecks() {
+    renderDecks(): TemplateResult {
         return html`
-            ${this.decks.map(x => {
-            if (x === "hiragana") {
+            ${this.decks.map((deck: string) => {
+            if (deck === "hiragana") {
                 return html`
-                <container @click="${(event: Event) => this.handleDeckClick(event, x, APP_MODES.DECK_REVIEW)}" class="noselect">
-                    <h1>${x}</h1>
+                <container @click="${(event: Event) => this.handleDeckClick(event, deck, APP_MODES.DECK_REVIEW)}" class="noselect">
+                    <h1>${deck}</h1>
                 </container>
                 `;
             }
             return html`
                 <group-container>
-                    <container @click="${(event: Event) => this.handleDeckClick(event, x, APP_MODES.DECK_REVIEW)}" class="noselect">
-                        <h1>${x}</h1>
+                    <container @click="${(event: Event) => this.handleDeckClick(event, deck, APP_MODES.DECK_REVIEW)}" class="noselect">
+                        <h1>${deck}</h1>
                     </container>
-                    <container class="edit-button" @click="${(event: Event) => this.handleDeckClick(event, x, APP_MODES.EDIT_DECK)}" >
+                    <container class="edit-button" @click="${(event: Event) => this.handleDeckClick(event, deck, APP_MODES.EDIT_DECK)}" >
                         <h2>edit</edit>
                     </container>
                 </group-container>
@@ -119,7 +119,7 @@ class DeckSelection extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult {
         return html`
         <deck-container>
             ${this.renderDecks()}

@@ -1,4 +1,4 @@
-import { LitElement, html, css, property } from "lit-element";
+import { LitElement, html, css, property, CSSResult, TemplateResult } from "lit-element";
 import { noSelect } from "../../themes/no-select"
 
 class RomajiReveal extends LitElement {
@@ -7,9 +7,9 @@ class RomajiReveal extends LitElement {
     @property({ attribute: "img" })
     img: string = "";
     opacity: number;
-    randomCardCallback: any;
+    randomCardCallback: Function | undefined;
 
-    static get styles() {
+    static get styles(): Array<CSSResult> {
         return [
             noSelect,
             css`
@@ -36,14 +36,14 @@ class RomajiReveal extends LitElement {
     }
 
     // TODO: make this fade out without requiring a click
-    fadeAway() {
+    fadeAway(): void {
         if (this.randomCardCallback) {
             this.randomCardCallback();
         }
         this.remove();
     }
 
-    renderImg() {
+    renderImg(): TemplateResult | null {
         if (!this.img) return null;
 
         return html`
@@ -51,7 +51,7 @@ class RomajiReveal extends LitElement {
         `;
     }
 
-    renderRomaji() {
+    renderRomaji(): TemplateResult | null {
         if (!this.romaji) return null;
 
         return html`
@@ -59,7 +59,7 @@ class RomajiReveal extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult {
         return html`
         <style>
         container {

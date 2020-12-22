@@ -1,4 +1,4 @@
-import localStorageDriver from "../localStorageDriver";
+import { localStorageDriver } from "../localStorageDriver";
 import {
     StorageDriver,
 } from "../types";
